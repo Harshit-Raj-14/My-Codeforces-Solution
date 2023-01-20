@@ -1,0 +1,12 @@
+#include <iostream>
+#include <string>   //to use getline feature you must include string library
+
+using namespace std;
+
+int main(){
+    string S; 
+    getline(cin, S);
+    cout<<"Hello, "<<S<<endl;
+    
+    return 0;
+}
