@@ -1,0 +1,44 @@
+#include<iostream>
+#include<iomanip>
+using namespace std;
+int main()
+{
+
+    float A, B, C, min, max;
+    cin>>A>>B>>C;
+
+    if(A>=B && A>=C) max=A;
+    else if(B>=C) max=B;
+    else max=C;
+
+    if(A<=B && A<=C) min=A;
+    else if(B<=C) min=B;
+    else min=C;
+
+    cout<<min<<" "<<max;
+
+    return 0;
+     
+}
+
+
+/* M II */
+#include<iostream>
+#include<iomanip>
+using namespace std;
+int main()
+{
+
+    float A, B, C, mi, ma;
+    cin>>A>>B>>C;
+
+    ma=max(A,B);
+    ma=max(ma,C);
+    mi=min(A,B);
+    mi=min(mi,C);
+
+    cout<<mi<<" "<<ma;
+
+    return 0;
+     
+}
