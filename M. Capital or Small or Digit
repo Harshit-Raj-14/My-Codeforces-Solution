@@ -1,0 +1,18 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    char c;
+    cin>>c;
+    int ascii=int(c);
+    if(ascii>=48 & ascii<=57) cout<<"IS DIGIT"<<endl;
+    else cout<<"ALPHA"<<endl;
+
+    if(ascii>=65 & ascii<=90) cout<<"IS CAPITAL"<<endl;
+    if(ascii>=97 & ascii<=122) cout<<"IS SMALL"<<endl;
+
+    return 0;
+}
+
+
+Link - https://codeforces.com/group/MWSDmqGsZm/contest/219158/problem/M
