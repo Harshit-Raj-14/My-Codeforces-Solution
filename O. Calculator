@@ -1,0 +1,19 @@
+#include<bits/stdc++.h>
+#include <string>
+using namespace std;
+
+int main(){
+    int a,b;
+    char s;
+    cin>>a>>s>>b;
+    if(s=='+') cout<<a+b;
+    if(s=='-') cout<<a-b;
+    if(s=='/') cout<<a/b;
+    if(s=='*') cout<<a*b;
+
+    return 0;
+  
+}
+
+
+Link - https://codeforces.com/group/MWSDmqGsZm/contest/219158/problem/O
