@@ -1,0 +1,20 @@
+#include<bits/stdc++.h>
+#include <string>
+using namespace std;
+
+int main(){
+    int n,y,m,d;
+    cin>>n;
+    y=n/365;
+    m=(n-365*y)/30;
+    d=n - 365*y - 30*m;
+    cout<<y<<" years"<<endl;
+    cout<<m<<" months"<<endl;
+    cout<<d<<" days"<<endl;
+
+    return 0;
+  
+}
+
+
+Link - https://codeforces.com/group/MWSDmqGsZm/contest/219158/problem/R
