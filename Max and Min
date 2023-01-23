@@ -33,7 +33,7 @@ int main()
     cin>>A>>B>>C;
 
     ma=max(A,B);
-    ma=max(ma,C);
+    ma=max(ma,C);           //SMART MOVE: min(a,min(b,c)) 
     mi=min(A,B);
     mi=min(mi,C);
 
