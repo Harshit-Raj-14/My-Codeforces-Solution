@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    float a,b;
+    char s;
+    bool flag;
+
+    cin>>a>>s>>b;
+
+    if(s=='>') flag = a>b;
+    if(s=='<') flag = a<b;
+    if(s=='=') flag = a==b;
+
+    if(flag==true) cout<<"Right";
+    else cout<<"Wrong";
+
+    return 0;
+
+}
+
+Link - https://codeforces.com/group/MWSDmqGsZm/contest/219158/problem/V
