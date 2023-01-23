@@ -1,0 +1,38 @@
+//MI
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    float x;
+    cin>>x;
+    
+    int i; float f;
+    i=x;
+    if(i==x) cout<<"int "<<x;
+    else cout<<"float "<<i<<" "<<x-i;
+
+return 0;
+}
+
+
+
+//MII
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    float x,integral,fractional;
+    cin>>x;
+
+    fractional=modf(x,&integral);
+    
+    if(fractional==0) cout<<"int"<<" "<<integral;
+    else cout<<"float"<<" "<<integral<<" "<<fractional;
+
+return 0;
+}
+
+
+Link - https://codeforces.com/group/MWSDmqGsZm/contest/219158/problem/U
