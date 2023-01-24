@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    long long a,b,c,d,p;
+    cin>>a>>b>>c>>d;
+
+    // double r1=pow(a,b);  We could have doen this but no
+    // double r2=pow(c,d);
+
+    // Now if we are talking about taking powers there is a big mistake we ar egoignt o make of getting it stack overflow for the data type
+    // to fix that simple maths: a^b and comapring c^d (take log on both sides)
+    // b*loga comapre d*logc Problem solved no overflow
+
+    if(b*log(a)>d*log(c)) cout<<"YES";
+    else cout<<"NO";
+    
+    return 0;
+
+}
+
+
+Link - https://codeforces.com/group/MWSDmqGsZm/contest/219158/problem/Z
