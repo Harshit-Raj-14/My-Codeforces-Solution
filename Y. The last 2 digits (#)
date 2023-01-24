@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int a,b,c,d,p;
+    cin>>a>>b>>c>>d;
+    a=a%100;    //why we are doing this is becuase the multipication might lead to overflow so we are here reducign their value according to contraints
+    b=b%100;
+    c=c%100;
+    d=d%100;  
+
+    p=a*b*c*d;
+    
+    //Now printing last two digits of p
+    if(p%100<=9) cout<<0;
+    cout<<p%100;
+    
+    return 0;
+
+}
+
+
+link - https://codeforces.com/group/MWSDmqGsZm/contest/219158/problem/Y
