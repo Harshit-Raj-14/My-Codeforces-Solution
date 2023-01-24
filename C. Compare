@@ -1,0 +1,16 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    string s1,s2;
+
+    cin>>s1>>s2;
+
+    cout<<min(s1,s2);
+
+    return 0;
+}
+
+    
+    
+    link - https://codeforces.com/group/MWSDmqGsZm/contest/219856/problem/C
