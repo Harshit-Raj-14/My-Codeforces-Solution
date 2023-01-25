@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+#include <string>
+using namespace std;
+
+int main()
+{
+   int n;
+   cin>>n;
+
+   int arr[26] = {0};
+
+   for(int i=0;i<n;i++){        //you need to see this type of inpult manipulation coming there was a reason4 was givne in the start: hint
+    char c;
+    cin>>c; //This will work as a string
+    arr[(int)c -97]++;  //similar to ocunt array for alphabets
+   }
+
+   for(int i=0;i<26;i++){
+    while(arr[i]!=0){
+        cout<<(char)(i+97);
+        arr[i]--;
+    }
+   }
+
+   return 0;
+}
+
+// LOGIC: much similar to counting sort
+// d   100-97 = 3    arr[3]=1
+// a   97-97 = 0       arr[0]=1
+// c   99-97=2       arr[2]=1
+// d   100-97=3        arr[3]=2
+
+
+
+Link - https://codeforces.com/group/MWSDmqGsZm/contest/219856/problem/O
