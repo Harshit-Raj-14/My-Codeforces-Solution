@@ -1,0 +1,72 @@
+#include <bits/stdc++.h>
+#include <string>
+using namespace std;
+
+int main()
+{
+   string s;
+   cin>>s;
+
+   for(int i=0;i<s.size()/2;i++){
+    if(s[i]!=s[s.size()-1 -i]){
+        cout<<"NO"; 
+        return 0;
+    }
+   }
+    cout<<"YES";  
+
+    return 0;
+}
+
+
+MII:
+#include <bits/stdc++.h>
+using namespace std;
+ 
+// Function to check whether
+// the string is palindrome
+string isPalindrome(string S)
+{
+    // Stores the reverse of the
+    // string S
+    string P = S;
+ 
+    // Reverse the string P
+    reverse(P.begin(), P.end());
+ 
+    // If S is equal to P
+    if (S == P) {
+        // Return "Yes"
+        return "Yes";
+    }
+    // Otherwise
+    else {
+        // return "No"
+        return "No";
+    }
+}
+
+
+MIII: FLAG METHOD
+#include <bits/stdc++.h>
+using namespace std;
+ 
+// Function to check whether string
+// is palindrome
+string isPalindrome(string S)
+{
+    // Iterate over the range [0, N/2]
+    for (int i = 0; i < S.length() / 2; i++) {
+ 
+        // If S[i] is not equal to
+        // the S[N-i-1]
+        if (S[i] != S[S.length() - i - 1]) {
+            // Return No
+            return "No";
+        }
+    }
+    // Return "Yes"
+    return "Yes";
+}
+
+link - https://codeforces.com/group/MWSDmqGsZm/contest/219856/problem/I
