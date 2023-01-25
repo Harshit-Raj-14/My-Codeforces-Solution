@@ -1,0 +1,34 @@
+#include <bits/stdc++.h>
+#include <string>
+using namespace std;
+
+int main()
+{
+   string s;
+   cin>>s;
+   string h="hello";
+
+   int i=0;
+   int j=0;
+
+   while(true){
+    if(i==s.size() || j==h.size()) break;
+    if(s[i]==h[j]) j++;   //increase j if there is a match, we are just iteratign voer s and check if hello can be subsequence a possibiltiy
+    i++;
+   }
+   if(j==5) cout<<"YES";    //if jturns out to be 5 then we travelled through hello fully as well
+   else cout<<"NO";
+   
+    return 0;
+}
+
+
+LOGIC: Take a string and assign it a value "hello".Take two int variables i and j. Set both to zero. 
+They will represent the index of current character on the input string and index of the current char on the string hello
+Iterate on the input string and every time u encounter a char equal to char to which the j variable points, increment j. 
+It means that we have got the char at index j and now we will search for the next character.
+At last after the loop ends check if the j variable has a val equal to 5 or not.  
+If it is 5 then it means all the characters of hello were encountered in order. So print yes
+
+
+Link - https://codeforces.com/group/MWSDmqGsZm/contest/219856/problem/M
