@@ -1,0 +1,45 @@
+//C++ SOLUTION
+#include <bits/stdc++.h>
+#include <string>
+using namespace std;
+
+int main(){
+    string s;
+    int flag=0;
+    while(cin>>s){
+        reverse(s.begin(),s.end());
+        if(flag) cout<<" ";
+        flag=1;
+        cout<<s;        //we needed to use flag to stop giving an extra space at end
+    }
+    return 0;
+}
+
+
+//JAVA SOLUTION
+import java.util.*;
+
+public class HelloWorld{
+    public static void Reverse(String s){
+        String words[] = s.split("\\s");        //s.split(" ");
+        String r="";
+        for(String w:words){
+        StringBuilder sb=new StringBuilder(w);  
+        sb.reverse();  
+        r += sb.toString()+" ";  
+        }
+        System.out.println(r.trim());
+    }
+
+    public static void main(String args[]){
+        Scanner sc=new Scanner(System.in);
+        String s = sc.nextLine();
+        Reverse(s);
+        sc.close();
+    }
+}
+
+
+
+
+LINK - https://codeforces.com/group/MWSDmqGsZm/contest/219856/problem/Q
