@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-long long factorial(int n){
+long long factorial(int n){     //make sure to keep it long long otherwise test case failur ebecuas eof overflow
     if(n==0) return 1;
     return n*factorial(n-1);
 }
