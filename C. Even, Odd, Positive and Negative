@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int N;
+    cin>>N;
+    int n;
+
+    int even=0, positive=0, negative=0;
+
+    for(int i=0;i<N;i++){
+        cin>>n;
+        if(n>0) positive++;
+        if(n<0) negative++;
+        //note the test case we donot count zero in +ve and leave it be
+        if(n%2==0) even++;
+    }
+
+    cout<<"Even: "<<even<<endl;
+    cout<<"Odd: "<<N-even<<endl;
+    cout<<"Positive: "<<positive<<endl;
+    cout<<"Negative: "<<negative<<endl;
+    
+    return 0;
+}
+
+
+link - https://codeforces.com/group/MWSDmqGsZm/contest/219432/problem/C
