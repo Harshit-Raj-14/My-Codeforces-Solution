@@ -17,6 +17,7 @@ int main(){
     return 0;
 }
 
-    
+//The input is string.
+But we cant now directly convert it into int.  Reason: The contriant is 10^6 and so we cannto covnert it into an integer. So, we change each index into a int by manipulation.
     
     Link - https://codeforces.com/group/MWSDmqGsZm/contest/219856/problem/E
