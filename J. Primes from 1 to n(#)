@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void printPrime(int n){     //n is the itnerval between 1 and n inclusive
+    int i=2;
+
+    while(i<=n){
+        bool isPrime = true;
+        for(int j=2;j<=i/2;j++){    //Note: the condition is j<=i/2
+            if(i%j==0){
+                isPrime=false;
+                break;
+            }
+        }
+        if(isPrime==true) cout<<i<<" ";
+        i++;
+    }
+}
+
+int main(){
+    int n;
+    cin>>n;
+    printPrime(n);
+
+    return 0;
+}
+
+
+
+link - https://codeforces.com/group/MWSDmqGsZm/contest/219432/problem/J
