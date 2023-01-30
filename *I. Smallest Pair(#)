@@ -1,0 +1,29 @@
+link - https://codeforces.com/group/MWSDmqGsZm/contest/219774/problem/I
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int T;
+    cin>>T;
+
+    for(int m=0; m<T;m++){  //no of test cases
+        int N;
+        cin>>N;
+
+        int arr[N];
+        for(int n=0;n<N;n++){       //inputting array
+            cin>>arr[n];
+        }
+
+        int mini = INT_MAX;     //we have to print the smallest
+        for(int i=1;i<=N;i++){      //Constraints: 1≤i<j≤N
+            for(int j=i+1;j<=N;j++){
+                mini = min(mini, arr[i-1] + arr[j-1] + j -i);       //getting the smallest pair
+            }
+        }
+        cout<<mini;
+    }
+    
+    return 0;
+}
