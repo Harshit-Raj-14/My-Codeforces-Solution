@@ -1,0 +1,48 @@
+There exists O(n) solution to count non-decreasing subarrays. find here - https://www.geeksforgeeks.org/count-strictly-increasing-subarrays/
+
+/* ACCEPTED O(n^2) SOLUTION */
+import java.util.*;
+
+public class now {
+    public static void Solution(int arr[]) {
+        int n = arr.length;
+        int count=n;    //initia;ise count by length becuase we consider the single elements as non-decreasing and count it here itself
+        for (int i=0; i<n; i++) {   //first we are trying to find all the subarrays and then find the non decreasing sub arrays
+            for(int j=i+1;j<arr.length;j++){
+                if(arr[j]>=arr[j-1]) count++;
+                else break;
+            }
+        }
+        System.out.println(count);
+    }
+
+    public static void printArray(int arr[]) {
+        for (int i = 0; i < arr.length; i++) {
+            System.out.println(arr[i] + " ");
+        }
+        // System.out.println();
+    }
+
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int T;
+        T = sc.nextInt();
+        for (int t = 0; t < T; t++) {
+            int size;
+            size = sc.nextInt();
+
+            int arr[] = new int[size];  //inputting array
+            for (int i = 0; i < size; i++) {
+                arr[i] = sc.nextInt();
+            }
+
+            Solution(arr);
+        }
+        sc.close();
+    }
+}
+
+
+Link - https://codeforces.com/group/MWSDmqGsZm/contest/219774/problem/Q
+
+
