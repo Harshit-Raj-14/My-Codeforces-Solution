@@ -1,0 +1,39 @@
+import java.util.*;
+
+public class now {
+    public static void Solution(int arr[]) {
+        int n = arr.length;
+
+        for (int i = 0; i < n; i++) {   //first we are trying to find all the subarrays and then use the max function to filter the max number out
+            for(int j=i;j<arr.length;j++){
+                int max = Integer.MIN_VALUE;
+                for(int k=i;k<=j;k++){
+                    max = Math.max(max,arr[k]);
+                }
+                System.out.print(max+" ");
+            }   
+        }
+        System.out.println();
+    }
+
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int T;
+        T = sc.nextInt();
+        for (int t = 0; t < T; t++) {
+            int size;
+            size = sc.nextInt();
+
+            int arr[] = new int[size];  //inputting array
+            for (int i = 0; i < size; i++) {
+                arr[i] = sc.nextInt();
+            }
+
+            Solution(arr);
+        }
+        sc.close();
+    }
+}
+
+
+link - https://codeforces.com/group/MWSDmqGsZm/contest/219774/problem/L
