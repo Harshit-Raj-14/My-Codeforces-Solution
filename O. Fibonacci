@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()    //use long long otherwise you will get testcase 48 error
+{
+    long long n;
+    cin >> n;
+
+    if (n == 1)
+        cout << 0;
+    else if (n == 2)
+        cout << 1;
+    else
+    {
+        long long f1 = 0;
+        long long f2 = 1;
+        long long f3;
+
+        for (int i = 1; i <= n - 2; i++)
+        {
+            f3 = f1 + f2;
+            f1 = f2;
+            f2 = f3;
+        }
+        cout << f3;
+    }
+
+    return 0;
+}
+
+
+
+link - https://codeforces.com/group/MWSDmqGsZm/contest/219774/problem/O
