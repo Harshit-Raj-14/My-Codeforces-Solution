@@ -1,0 +1,40 @@
+import java.util.*;
+
+public class now {
+    public static void Solution(int arr[][], int N) {
+        boolean flag=true;
+        for(int i=0;i<arr.length;i++){
+            for(int j=0;j<arr[0].length;j++){
+                if(N==arr[i][j]) flag=false;
+            }
+        }
+        if(flag==true) System.out.println("will take number");
+        else System.out.println("will not take number");
+    }
+
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int r;
+        r = sc.nextInt();   //r -> rows
+
+        int c;
+        c = sc.nextInt();   //c -> columns
+
+        int arr[][] = new int [r][c];
+        for(int i=0;i<r;i++){
+            for(int j=0;j<c;j++){
+                arr[i][j]=sc.nextInt();
+            } 
+        }
+
+        int N;
+        N=sc.nextInt();
+
+        Solution(arr,N);
+
+        sc.close();
+    }
+}
+
+
+link - https://codeforces.com/group/MWSDmqGsZm/contest/219774/problem/S
