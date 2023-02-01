@@ -1,0 +1,56 @@
+import java.util.*;
+
+public class Main {
+    public static int Sum(int arr[]) {
+        int sum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            sum += arr[i];
+        }
+        return sum;
+    }
+
+    public static int Solution(int arr[]) {
+        // solution (III cases)
+        int sum = Sum(arr);
+        int flag = 0;
+        for (int i = 0; i < arr.length - 1; i++){ // don't try to change the array to get the sum, just check the occurence and predict the sum
+            if (arr[i] == -1 & arr[i + 1] == -1) flag = 1; // two -1 becomes 1 and the already subtracted value needs to be nulled so = +4
+        }
+        if (flag == 1) return sum + 4;
+        if (sum == arr.length) return sum - 4; // all are 1 so when we change any i so we will have to deduct 4
+        else return sum; // if arr[i]=1 and arr[-1] or vice versa there is no change in sum
+    }
+
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int T;
+        T = sc.nextInt();
+
+        for (int i = 0; i < T; i++) {
+            int N;
+            N = sc.nextInt();
+            int arr[] = new int[N];
+
+            for (int j = 0; j < N; j++) {
+                arr[j] = sc.nextInt();
+            }
+
+            int sum = Solution(arr);
+            System.out.println(sum);
+        }
+
+        sc.close();
+    }
+}
+
+
+LOGIC: don't try to change the array to get the sum, just check the occurence and predict the sum (This will keep TC-O(n))
+
+All are 1 or -1; sum is the intial sum of original array
+3cases
+1 and -1 appear => consecutively so sum+4;
+1 and 1 can only appear => the full array is of 1 (condition sum==arr.length) sum-4;
+1 and -1 only appear => no change in sum;
+
+
+Link - https://codeforces.com/contest/1778/problem/A
