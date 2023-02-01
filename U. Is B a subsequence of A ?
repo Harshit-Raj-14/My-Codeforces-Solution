@@ -1,0 +1,44 @@
+import java.util.*;
+
+public class now {
+    public static void Subsequence(int arr1[], int arr2[]) {
+        int i=0,j=0;
+        while(true){
+            if(i==arr1.length || j==arr2.length ) break;
+            if(arr1[i]==arr2[j]) j++;
+            i++;
+        }
+        if(j==arr2.length) System.out.println("YES");
+        else System.out.println("NO");
+    }
+
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int N;
+        N = sc.nextInt();   
+
+        int M;
+        M = sc.nextInt();  
+
+        int arr1[] = new int [N];
+        int arr2[] = new int[M];
+
+        for(int i=0;i<N;i++){
+            arr1[i]=sc.nextInt();
+        }
+        for(int j=0;j<M;j++){
+            arr2[j]=sc.nextInt();
+        } 
+        
+        Subsequence(arr1,arr2);
+
+        sc.close();
+    }
+}
+
+
+LOGIC: We take two pointers i and j.
+One iterate normally over the main array and the other j will move over the second array only if a match is found.
+Hence if j is equal to length of second array in the end, we have found our subsequence.
+
+Link - https://codeforces.com/group/MWSDmqGsZm/contest/219774/problem/U
