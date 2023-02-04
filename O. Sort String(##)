@@ -9,10 +9,10 @@ int main()
 
    int arr[26] = {0};
 
-   for(int i=0;i<n;i++){        //you need to see this type of inpult manipulation coming there was a reason4 was givne in the start: hint
+   for(int i=0;i<n;i++){        //you need to see this type of inpult manipulation coming there was a reason 4 was givne in the start: hint
     char c;
     cin>>c; //This will work as a string
-    arr[(int)c -97]++;  //similar to ocunt array for alphabets
+    arr[(int)c -97]++;  //similar to count array for alphabets
    }
 
    for(int i=0;i<26;i++){
