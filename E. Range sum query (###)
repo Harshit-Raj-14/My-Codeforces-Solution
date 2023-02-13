@@ -4,6 +4,45 @@
 
 
 
+
+
+
+///////////////////////// JAVA CORRECT METHOD BUT TLE BECUASE EXTRA LOOPS //////////////////////////
+    import java.util.*;
+     
+    public class Main {
+        public static void PrefixSum(int arr[], int l, int r){
+            int psum[] = new int[arr.length];
+            psum[0]=arr[0];
+            for(int i=1;i<arr.length;i++){
+                psum[i] = psum[i-1] + arr[i];
+            }
+     
+            int sum=0;
+            if(l>1) sum = psum[r-1] - psum[l-2];
+            else sum = psum[r-1];
+     
+            System.out.println(sum);
+        }
+     
+        public static void main(String args[]) {
+            Scanner sc = new Scanner(System.in);
+            int n = sc.nextInt();
+            int q = sc.nextInt();
+            int arr[] = new int[n];
+            for (int i = 0; i < arr.length; i++) {
+                arr[i] = sc.nextInt();
+            }
+            for(int i=0;i<q;i++){
+                int l =sc.nextInt();
+                int r =sc.nextInt();
+                PrefixSum(arr, l, r);
+            }
+        }
+    }
+
+
+
 /* JAVA NAIVE SOLUTION O(N*Q) TLE NOT ACCEPTED */
 import java.util.*;
 
