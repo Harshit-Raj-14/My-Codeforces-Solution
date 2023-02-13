@@ -1,0 +1,60 @@
+/* USING HASHSET */ REASON -- HASHSET SORTS THE ARRAY AND REMOVES THE DUPLICATE ONE SO USE IT WHENVER YOU NEED TO FIND WHETHER ARRAY CONTAINS AN ELEMENT OR NOT
+import java.util.*;
+
+public class main {
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+        int arr[] = new int[n];
+        Set<Integer> hash_Set = new HashSet<Integer>();
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = sc.nextInt();
+            hash_Set.add(arr[i]);
+        }
+        for(int i=-m;i<=m;i++){
+            if(!hash_Set.contains(i)){  //if hashset does not contain i print it, hashset has already sorted array and removed the duplicates
+                System.out.println(i);
+                break;
+            } 
+        }   
+    }
+}
+
+
+
+import java.util.*;
+
+public class Main {
+    public static void Solution(int arr[], int m){  //we have to find the first integer=x lying between -m and m that does not appear in arr
+        //int j=0;
+        Arrays.sort(arr);
+        for(int i=-m;i<=m;i++){
+            if (Arrays.binarySearch(arr, i) < 0){      //if(arr[j]!=i) fails on testcase 62 
+                System.out.println(i); 
+                break;
+            }
+            //j++;
+        }
+    }
+
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+        int arr[] = new int[n];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = sc.nextInt();
+        }
+        Solution(arr, m);
+    }
+}
+
+
+TESTCASE 62 failure - 
+3 3
+-3 -2 -1
+Array index out of bond
+But binary search come shtrough becuase it checks in whole array
+
+link - https://codeforces.com/group/c3FDl9EUi9/contest/262795/problem/D
