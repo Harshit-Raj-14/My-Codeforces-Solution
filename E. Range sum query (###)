@@ -1,13 +1,45 @@
 /* JAVA ACCEPTED SOLUTION O(N+Q) PREFIX-SUM TECHNIQUE */
+import java.util.*;
+
+public class Main {
+    public static void PrefixSum(long psum[], int l, int r){
+        // int psum[] = new int[arr.length+1];      //done in the main aprt to save for loop time
+        // for(int i=1;i<=arr.length;i++){
+        //     psum[i] = psum[i-1] + arr[i];
+        // }
+
+        long sum=0;
+        if(l>1) sum = psum[r] - psum[l-1];
+        else sum = psum[r];
+
+        System.out.println(sum);
+    }
+
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int q = sc.nextInt();
+        long arr[] = new long[n+1];
+        long psum[] = new long[n+1];
+        for (int i = 1; i <=n; i++) {  //make array indexed 1
+            arr[i] = sc.nextInt();
+            psum[i] = psum[i-1] + arr[i];
+        }
+        for(int i=1;i<=q;i++){
+            int l =sc.nextInt();
+            int r =sc.nextInt();
+            PrefixSum(psum, l, r);
+        }
+        sc.close();
+    }
+}
+
+LOGIC : Use long instead of double and int. It gets the job done. Solves overflow problem and array indexed a s1 for convenience of running 1 loop.
 
 
 
-
-
-
-
-
-///////////////////////// JAVA CORRECT METHOD BUT TLE BECUASE EXTRA LOOPS //////////////////////////
+///////////  PREFIX SUM METHOD  ///////////////
+///////////////////////// JAVA CORRECT METHOD BUT TLE BECUASE overlow has not been handled - general //////////////////////////
     import java.util.*;
      
     public class Main {
