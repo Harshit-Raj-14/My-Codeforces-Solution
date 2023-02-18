@@ -1,0 +1,70 @@
+import java.util.*;
+
+public class Main {
+
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int t = sc.nextInt();
+        
+        ArrayList<Integer> list= new ArrayList<>();
+        for (int i = 0; i < n; i++){
+            list.add(sc.nextInt());
+        }
+        while (t-- > 0) {
+            String s = sc.next();
+            if(s.equals("sort")){
+                int l=sc.nextInt();
+                int r=sc.nextInt();
+                if(l>r) 
+                {
+                    int temp=l;
+                    l=r;
+                    r=temp;
+                }
+                Collections.sort(list.subList(l-1, r));
+            }
+            else if(s.equals("pop_back")){
+                list.remove(list.size()-1);
+            }
+            else if(s.equals("front")){
+                System.out.println(list.get(0));
+            }
+            else if(s.equals("back")){
+                System.out.println(list.get(list.size() - 1));
+            }
+            else if(s.equals("reverse")){
+                int l=sc.nextInt();
+                int r=sc.nextInt();
+                if(l>r) 
+                {
+                    int temp=l;
+                    l=r;
+                    r=temp;
+                }
+                Collections.reverse(list.subList(l-1, r));
+            }
+            else if(s.equals("push_back")){
+                int x=sc.nextInt();
+                list.add(x);
+            }
+            else if(s.equals("print")){
+                int pos=sc.nextInt();
+                System.out.println(list.get(pos-1));
+            }
+        }     
+        sc.close();
+    }
+}
+
+/*
+ * Things to remember
+ * we have not been given whether l<r or not
+ * so if(l>r) swap(l,r) : use this wherever needed
+ * 
+ * don't usee == operator for string compare becuase it compares reference. 
+ * Use .equals method always becuase it checks actual content of the string
+ Don't use compare, you will get wrong result for print call
+ */
+ 
+ link - https://codeforces.com/group/c3FDl9EUi9/contest/262795/problem/I
