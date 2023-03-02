@@ -1,0 +1,89 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void solve(){
+    int n;
+        cin >> n;
+        string s;
+        cin >> s;
+
+        int i = 0;
+        int m = 0, e = 0, o = 0, w = 0;
+
+        if (s[i] == 'm' or s[i] == 'M')
+            while ((s[i] == 'm' or s[i] == 'M') and i < n)
+            {
+                m = 1;
+                i++;
+            }
+        else
+        {
+            cout << "NO" << endl;
+            return;
+        }
+
+        if (s[i] == 'e' or s[i] == 'E')
+            while ((s[i] == 'e' or s[i] == 'E') and i < n)
+            {
+                e = 1;
+                i++;
+            }
+        else
+        {
+            cout << "NO" << endl;
+            return;
+        }
+
+        if (s[i] == 'o' or s[i] == 'O')
+            while ((s[i] == 'o' or s[i] == 'O') and i < n)
+            {
+                o = 1;
+                i++;
+            }
+        else
+        {
+            cout << "NO" << endl;
+            return;
+        }
+
+        if (s[i] == 'w' or s[i] == 'W')
+            while ((s[i] == 'w' or s[i] == 'W') and i < n)
+            {
+                w = 1;
+                i++;
+            }
+        else
+        {
+            cout << "NO" << endl;
+            return;
+        }
+
+        if (m == 1 and e == 1 and o == 1 and w == 1 and i == n)
+            cout << "YES" << endl;
+        else
+            cout << "NO" << endl;
+}
+
+int main()
+{
+    int t;
+    cin >> t;
+    while (t-- > 0)
+    {
+        solve();
+    }
+
+    return 0;
+}
+
+
+/*
+Note that when finding meow it is not necessary to check occurences we just have to confirm one exist or not.
+so we check if m comes in order then e then o then w next in order
+and finally we check the order by raising flags of their names
+if true then print yes
+else print no
+*/
+
+
+link - https://codeforces.com/contest/1800/problem/A
