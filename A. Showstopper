@@ -38,4 +38,10 @@ public class Main{
 }
 
 
+LOGIC - 
+We want both arrays have last element maximum.
+So, we cna only think where one array has all leesser element and the other larger.
+So, make a[] smaller array which will have the elast number in comparison to b[].
+
+
 link - https://codeforces.com/contest/1798/problem/A
