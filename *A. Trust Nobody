@@ -1,0 +1,62 @@
+import java.util.*;
+
+public class Main{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-->0){
+            int n=sc.nextInt();
+            int arr[]=new int[n];
+            for(int i=0;i<n;i++){
+                arr[i]=sc.nextInt();
+            }
+
+            int ans=-1;
+            for(int i=0;i<arr.length;i++){
+                int mayormaynotbelie=0;
+                for(int j=0;j<arr.length;j++){
+                    if(arr[j]>arr[i]) mayormaynotbelie++;
+                }
+                int truelies=0;
+                for(int j=0;j<arr.length;j++){
+                    if(arr[j]>mayormaynotbelie) truelies++;
+                }
+
+                if(truelies==mayormaynotbelie && truelies>=arr[i]) ans=truelies;
+            }
+            System.out.println(ans);
+        }
+        sc.close();   
+    }
+}
+
+/* A. Trust Nobody
+liar -> always tell lies
+non-liar -> always tells the truth
+Statement : there are atleast l liars
+Focus on the word atleast
+
+eg : 
+2
+2,1 => first person says there are two atleast liars, then 2nd person says there is atleast one liar
+=> So, 1st person maybe telling truth
+
+eg: 
+2
+2,3 => first person says there are atleast two liars, then 2nd persons ays there are atleast three liars
+=> 2nd person statement may ormay not be a lie
+
+ALGORITHM
+ans=-1  //not satisfying condition
+loop i from 0 to n-1        //let i be the person tellign the truth
+    loop j from 0 to n-1
+        if(arr[j]>arr[i])
+        mayormaynot++;
+    loop j from 0 to n-1
+        if(arr[j]>mayormaynot)
+            truelies++;
+    
+    if(truelies==mayormaynotlies && truelies>=arr[i])
+        ans=truelies
+return ans
+*/
