@@ -1,0 +1,29 @@
+import java.util.*;
+
+public class hello{
+    public static void main (String args[]){
+        Scanner sc = new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            int n=sc.nextInt();
+            String s = sc.next();
+            HashSet<String> set = new HashSet<>();
+            int count=0;    //count of melodies
+            for(int i=0;i+1<s.length();i++){
+                String melody = s.charAt(i)+""+s.charAt(i+1); //to make it a string  //can also write like - String melody = s.substring(i, i + 2);
+                if(!set.contains(melody)){
+                    set.add(melody);
+                    count++;
+                }
+            }
+            System.out.println(count);
+        }
+        sc.close();
+    }
+}
+
+
+LOGIC -
+Since we need melodies of length 2
+ab+ba=aba something like this
+So we keep on taking pair of two and check them while adding in set and coun the distinct ones and return it as answer
