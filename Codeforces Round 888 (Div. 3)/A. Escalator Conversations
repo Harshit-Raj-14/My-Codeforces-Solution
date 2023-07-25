@@ -1,0 +1,44 @@
+import java.util.*;
+
+public class Main {
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-->0){
+            int n = sc.nextInt();   //no. of passengers
+            int m = sc.nextInt();   //no of steps marked 1->m; 
+            int k = sc.nextInt();   //height of step ->i.k
+            int h = sc.nextInt();   //vlad's height
+            int height[] = new int[n];
+            for(int i=0;i<height.length;i++){
+                height[i]=sc.nextInt();
+            }
+            HashSet<Integer> set = new HashSet<>(); //set to fidn differnet posisblities of height difference
+            for(int i=1;i<m;i++){
+                for(int j=i+1;j<=m;j++){
+                    set.add((j-i)*k);
+                }
+            }
+            set.remove(0);  //given condition two poeple not on same platform
+            //checking height differences of people with vlad
+            int ans=0;
+            for(int i=0;i<height.length;i++){
+                if(set.contains(Math.abs(h-height[i]))) ans++;
+            }
+            System.out.println(ans);
+        }
+        sc.close();
+    }
+}
+
+
+/*
+LOGIC ---
+Difference between height of two steps a and b:
+diffh=bk-ak=(b-a)k
+
+Steps we took - 
+we made a hashset of first all the possible differences of the steps and excluded 0 to remove the possiblity of standing on same step as asked us in the problem
+Then we find the differnece between vlad's height and people's height and check whether that is in the set or not
+*/
+
