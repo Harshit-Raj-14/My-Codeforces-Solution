@@ -1,0 +1,67 @@
+import java.util.*;
+
+public class Main {
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-->0){
+            int n = sc.nextInt();   
+            int arr[] = new int[n];
+            int sortedarr[] = new int [n];
+            for(int i=0;i<arr.length;i++){
+                arr[i]=sc.nextInt();
+                sortedarr[i]=arr[i];
+            }
+            Arrays.sort(sortedarr);
+            //Trying to sort arr using given rules
+            ArrayList<Integer> even = new ArrayList<>();
+            ArrayList<Integer> odd = new ArrayList<>();
+            for(int i=0;i<arr.length;i++){
+                if(arr[i]%2==0) even.add(arr[i]);
+                else odd.add(arr[i]);
+            }
+            Collections.sort(even);
+            Collections.sort(odd);
+            int p=0;    //counter index for even
+            int q=0;    //counter index for odd
+            for(int i=0;i<arr.length;i++){
+                if(arr[i]%2==0){
+                    arr[i]=even.get(p);
+                    p++;
+                }
+                else{
+                    arr[i]=odd.get(q);
+                    q++;
+                }
+            }
+            if(Arrays.equals(arr,sortedarr)==true) System.out.println("YES");
+            else System.out.println("NO");
+        }
+        sc.close();
+    }
+}
+
+
+/*
+LOGIC ---
+The question is a bubble sort but with a condition the swaps are only possible when both elemnts are either odd or both even.
+So, odd number can be swapped only with odd and even number can be swapped with only even.
+
+Case I: all elements are odd or all even. The parity sort becoems simple bubble sort
+Hence it can be always amd esorted with swaps
+
+Case II: first number is even and smallest number is odd or, vice versa.
+Since now the first element cannot be any way possibly swapped with the smalles number.
+Hence the array cannot be made sorted
+
+Case III: (GENERAL CASE) When array has both odd and even elements
+We make two lists of odd and even. Sort these two lists
+Now we put odd list number in array at positions where odd are and same with even.
+Compare sortedarr with the new arr and check whether they are equal or not => telling us whether we were able to sort the array or not
+
+Case I and II are just special cases observed from test cases
+
+Case III is the general case on which our code is based on
+
+*/
+
