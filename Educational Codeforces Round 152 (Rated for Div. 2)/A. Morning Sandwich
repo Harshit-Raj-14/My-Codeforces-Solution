@@ -22,7 +22,6 @@ public class Main {
 }
 
 
-/*
 LOGIC ---
 Formula sandwhich - cheese/ham - bread
 1 JUMBOsandwhich = 1 bread+1fill+1bread+1ham+....+1bread
@@ -33,5 +32,18 @@ So, let's find no of sandwhich we can make
 for 1 cheese/ham = 1 bread on top
 1 bread at bottom is itself the top of next (except for the last bread at bottom)
 cheese = ham = filling
-*/
+
+
+/* O(1) SOLUTION */
+LOGIC ---
+Notice that the type of filling doesn't matter. We can treat both cheese and ham together as one filling, with quantity c+h
+
+Then let's start building a sandwich layer by layer. Put a piece of bread. Then put a layer of filling and a piece of bread. 
+Then another layer of filling and a piece of bread. Observe that you can add one layer of filling and one piece of bread until one of them runs out. 
+After you've done that k times, you placed k+1 layers of bread and k layers of filling.
+
+Thus, there are two general cases. If bread runs out first, then k=b−1. Otherwise, k=c+h.
+The one that runs out first is the smaller of these two values. So the answer is min(b−1,c+h)
+
+Overall complexity: O(1)
 
