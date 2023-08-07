@@ -1,0 +1,78 @@
+import java.util.*;
+
+public class Main{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+            int t=sc.nextInt();
+            while(t-->0){
+                int n=sc.nextInt();
+                int arr[] = new int[n];
+                int count1=0;
+                long sum=0;
+                for(int i=0;i<n;i++){
+                    arr[i]=sc.nextInt();
+                    if(arr[i]==1) count1++;
+                    sum+=arr[i];
+                }
+                long mostminsumofpossiblegoodarray = (count1*2)+ (n-count1)*1; 
+                if(n==1) System.out.println("NO"); 
+                else if(sum<mostminsumofpossiblegoodarray) System.out.println("NO");
+                else System.out.println("YES");
+            }
+            sc.close();
+    }
+} 
+
+
+/*
+LOGIC ---
+Condition fo good array :
+a[i]!=b[i]
+and a[1]+a[2]+a[3]+... = b[1]+b[2]+b[3]+...
+
+By observtion:
+If n=1 : it will always be false as we cannot have a1!=b1 and at the same time a1=b1
+Again by observation we realise that getting a good array is not that difficult unless we have a lot of 1's,
+which will decrease the sum to min and we won't be left with much choices to get a replacement number while keeping the sum minimum.
+Note that 0 is not an option for a good array as we only want posiitve elements.
+
+Suppose b didn't have to consist of only positive integers. 
+Then, one simple strategy would be to to decrease each of a2,a3,…an by 1 and increase a1 by n−1. 
+Except for n=1, when it is impossible to get a good array.
+
+When b has to consist of only positive integers, we can't decrease elements that are equal to 1. 
+But to make bi≠ai, we also have to increase them by at least 1. 
+
+In a way the only way to make a good array when the number appears to b1 is to increase it alteast by one unit, since we cannot decrease it.
+
+So, if increasing all the 1's to 2's causes the sum of the new good array to exceed the original. We cannot obtain a possible good array.
+The next thing we can do to counter that increase of 1's to 2's is bring down the other number's as low as possible to 1.
+
+GENERAL FORMULA : 
+So, if sum(original array) >= sum(all 1's changed to 2's and all other digits changed to 1's)
+
+we can be sure of findign a gpossible good array somehow.
+
+*/
+
+
+READ THIS AS WELL ---
+Suppose b didn't have to consist of only positive integers. 
+Then, one simple strategy would be to to decrease each of a2,a3,…an by 1 and increase a1 by n−1. Except for n=1, when it is impossible to get a good array.
+
+When b has to consist of only positive integers, we can't decrease elements that are equal to 1. But to make bi≠ai, we also have to increase them by at least 1
+
+Let cnt1 be the number of elements in a that are equal to 1. 
+To not change the sum of the array, we have to decrease the other n−cnt1 elements by at least cnt1.
+For this to be possible, their sum must be equal to at least (n−cnt1)+cnt1=n, since each of the n−cnt1 elements must remain positive. 
+So, a1+a2+…+an has to be equal to at least cnt1+(n−cnt1)+cnt1=cnt1+n.
+
+So, if a1+…+an<cnt1+n, a good array doesn't exist. If n=1, a good array also doesn't exist.
+
+Now suppose a1+…+an≥cnt1+n and n≠1. We will prove that if this is the case, a good array must exist.
+
+If cnt1≤n2, we increase all ai=1 by 1 and decrease cnt1 elements that are ≥2 by 1 and apply the simple strategy described above for the other n−2⋅cnt1 elements ≥2, so in this case, a good array exists.
+
+If cnt1>n2, we increase all ai=1 by 1 and decrease each element ≥2 by at least 1, so bi≠ai holds for all 1≤i≤n, so in this case, a good array also exists.
+
+Complexity: O(n)
