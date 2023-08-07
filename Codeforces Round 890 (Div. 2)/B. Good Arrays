@@ -23,8 +23,6 @@ public class Main{
     }
 } 
 
-
-/*
 LOGIC ---
 Condition fo good array :
 a[i]!=b[i]
@@ -50,13 +48,38 @@ The next thing we can do to counter that increase of 1's to 2's is bring down th
 
 GENERAL FORMULA : 
 So, if sum(original array) >= sum(all 1's changed to 2's and all other digits changed to 1's)
-
 we can be sure of findign a gpossible good array somehow.
 
-*/
+
+/* A MUCH PERFECT SOLUTION */
+import java.util.*;
+
+public class Main{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+            int t=sc.nextInt();
+            while(t-->0){
+                int n=sc.nextInt();
+                int arr[] = new int[n];
+                int count1=0;
+                long sum=0;
+                for(int i=0;i<n;i++){
+                    arr[i]=sc.nextInt();
+                    if(arr[i]==1) count1++;
+                    sum+=arr[i];
+                }
+                long mostminsumofpossiblegoodarray = (count1*2)+ (n-count1)*1; 
+                if(n==1) System.out.println("NO"); 
+                else if(sum<count1+n) System.out.println("NO");
+                else System.out.println("YES");
+            }
+            sc.close();
+    }
+} 
 
 
-READ THIS AS WELL ---
+/*
+A MUCH PERFECT SOLUTION---
 Suppose b didn't have to consist of only positive integers. 
 Then, one simple strategy would be to to decrease each of a2,a3,…an by 1 and increase a1 by n−1. Except for n=1, when it is impossible to get a good array.
 
@@ -76,3 +99,5 @@ If cnt1≤n2, we increase all ai=1 by 1 and decrease cnt1 elements that are ≥2
 If cnt1>n2, we increase all ai=1 by 1 and decrease each element ≥2 by at least 1, so bi≠ai holds for all 1≤i≤n, so in this case, a good array also exists.
 
 Complexity: O(n)
+*/
+
