@@ -1,0 +1,62 @@
+import java.util.*;
+
+public class Main {
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while (t-- > 0) {
+            int n = sc.nextInt();   // no of monsters
+            int k = sc.nextInt();   // damage spell
+            int monsters[][] = new int[n][2]; // health of monsters //n->rows ; 2->columns(health, index)
+            for (int i = 0; i < monsters.length; i++) {
+                monsters[i][0] = sc.nextInt();  //storing health
+                monsters[i][1] = i+1;   //we make it one indexed
+            }
+            for(int i=0;i<monsters.length;i++){
+                if(monsters[i][0]%k==0) monsters[i][0]=k;  //Since, we want to sort the array and keep the ones killed first in order we need to bring them back to k to count them as greatest in health arr
+                else monsters[i][0]%=k;
+            }
+            Arrays.sort(monsters, (a,b)->b[0]-a[0]);
+            for(int i=0;i<monsters.length;i++){
+                System.out.print(monsters[i][1]+" ");
+            }
+            System.out.println();
+        }
+        sc.close();
+    }
+}
+
+/*
+LOGIC ---
+We attack on the highest health monster each time
+In case same we attack on the loswest idnexed same highest health monster
+
+eg: k=3
+-> 2 4 5 6 5 3
+-> 2 4 5 3 5 3
+-> 2 4 2 3 5 3
+-> 2 4 2 3 2 3
+-> 2 4 2 0 2 3
+-> 2 4 2 0 2 0
+Observation: health that are completely divisible by k becomes zero first(dies first). health[i]%k==0 and the order is followed
+After this the mosnter will die as per the %k value first health[i]%k==5 will die, then 4 then 3 then 2 then 1.
+Order of dying - [4 6 1 2 5 3]
+
+
+CONCLUSION -
+i-th monster has ai % k health instead of ai 
+(except for the case when ai is divisible by k, then the remaining health is k, not 0).
+Now, the health points of all monsters are from 1 to k, so each time we damage a monster, we kill it. 
+Therefore, monsters with k health points will die first since they are the biggest, then the ones with k−1 health points, and so on.
+
+Sort the monsters by their remaining health points in descending order 
+note - if two monsters have the same health, then they should be compared by index => stable sort
+stable sort => (Merge, Counting, Insertion, Bubble Sort) => Arrays.sort() is stable
+Now we want to sort such that when the health is sorted their original indexes stil lremain attached to them and are accessible.
+For that we have used matrix with first column as health and second column index.
+When health is sorted, the indexes move along with it.
+Arrays.sort(monsters, (a,b)->b[0]-a[0]);
+So, use lambda operator
+And the order of indexes you get after sorting health row is the answer to the problem.
+*/
+
