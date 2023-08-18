@@ -1,3 +1,8 @@
+
+
+
+
+/* A FAILED APPROACH BECUASE USED GREEDY */
 import java.util.*;
 public class Main{
 public static void main(String args[]){
@@ -29,9 +34,7 @@ public static void main(String args[]){
 }
 }
 
-/*
 LOGIC ---
-
 sum=m=total amount to pay
 a1=no of coins worth 1
 ak = no of coins worth k
@@ -39,18 +42,6 @@ What the questions want us to do is to use as minimum fancy coins as possible
 
 Regular coins - coins worth 1(~a1 coins) and coins worth k(~ak coins)
 Fancy coins - infinite coins worth 1 and k
-
-First we will start by spending ak coins, then a1 coins
-Then finally we will try to use fancy coisn to cover left sum
-
-Case I: no need to use fancy coins ( can completely pay with regular coins)
-Now if no of coins worth 1(~a1) exceeds the sum, no need to use fancy coins, since a1 coisn can fully pay sum
-if no. of coin worth k(~ak) k*ak==sum ; No need to use fancy coins, since ak coins can fully pay sum
-if m<k*ak && m%k<=a1    => No need to use fancy coins => If we can pay some part of m with ak, if ak*k is greater than 
-
-
-Case II: Need to use fancy coins. How? Best possible way?
-
 
 First we will start by spending ak coins, then a1 coins
 Then finally we will try to use fancy coisn to cover left sum
@@ -77,4 +68,11 @@ fancy1=remaingsum=sum
 
 So, our ans= minimum number of fancy coins used = fnacyk+fancy1 
 
-*/
+FAILED TEST CASE:
+i/p: 11 3 6 1
+o/p: 2
+correct output : 1
+
+Reason : We can use 5 regular coins worth 1 burle and 1 regular coin worth 3 burles. That will get him to 8 total burles when he needs 11. 
+So, 1 fancy coin worth 3 burles is enough.
+All becuase we got greedy after spending ak coins and tried to use a1 coins even when we had less a1 coins to cover.
