@@ -48,18 +48,6 @@ Fancy coins - infinite coins worth 1 and k
 
 First we will start by spending ak coins, then a1 coins
 Then finally we will try to use fancy coisn to cover left sum
-
-Case I: no need to use fancy coins ( can completely pay with regular coins)
-Now if no of coins worth 1(~a1) exceeds the sum, no need to use fancy coins, since a1 coisn can fully pay sum
-if no. of coin worth k(~ak) k*ak==sum ; No need to use fancy coins, since ak coins can fully pay sum
-if m<k*ak && m%k<=a1    => No need to use fancy coins => If we can pay some part of m with ak, if ak*k is greater than 
-
-
-Case II: Need to use fancy coins. How? Best possible way?
-
-
-First we will start by spending ak coins, then a1 coins
-Then finally we will try to use fancy coisn to cover left sum
 How many ak coins can we use with the thought that we want to use maximum number of ak coins?
 useak = Math.min(ak,  m/k); => m/k=total number of ak coins required. So, either ak_required exceeds ak given to us or otherwise we can utilise all the ak. 
 We will get the number of ak we will be putting to use.
@@ -82,7 +70,6 @@ Now time to use fancy1 worth 1 coins: i.e., if sum is still not become zero and 
 fancy1=remaingsum=sum
 
 So, our ans= minimum number of fancy coins used = fnacyk+fancy1 
-
 
 NOTE:
 We could have directly done this in above steps instead of again reducing sum:
