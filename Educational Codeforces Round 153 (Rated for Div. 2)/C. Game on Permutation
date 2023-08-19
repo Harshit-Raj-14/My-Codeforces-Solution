@@ -1,0 +1,56 @@
+import java.util.*;
+public class Main{
+public static void main(String args[]){
+    Scanner sc = new Scanner(System.in);
+    int t=sc.nextInt();
+    while(t-->0){
+        int n=sc.nextInt();  
+        int arr[] = new int[n];
+        for(int i=0;i<n;i++){
+            arr[i]=sc.nextInt();
+        } 
+        int count=0;
+        int fm=arr[0];  //firsmin
+        int sm=Integer.MAX_VALUE;   //secondmin
+        for(int i=0;i<arr.length;i++){
+            fm=Math.min(fm, arr[i]);
+            if(arr[i]>fm && sm>arr[i]){
+                sm=arr[i];
+                count++;
+            }
+        }
+        System.out.println(count);
+    }
+    sc.close();
+}
+}
+
+
+
+LOGIC ---
+Alice makes the first move
+A chip is placed on a number, the enxt player needs to move the chip to the next lower number
+The one unable to make a move wins the game.
+
+We need to find the the number of indexes that are lucky for Alice to win in the array.
+
+Some observations:
+Picking the first element is never an option otherwise Bob will win the game, sinc ehe won't be able to make a move
+If Alice uses the second index she can only win, if the first index is strictly smaller than the second index
+
+
+The perfect strategy for Alice to win?
+How about we think of indexes that if Bob were to put chips on he would lose, i.e. places from where chip cannot be moved further to left
+That will be a condition a[j]>a[i] for every j<i. And it should occur only once in any subarray. 
+That's the perfect winning strategy for Alice.
+
+For that to happen we take two variables firstmin(fm) and secondmin(sm)
+If our current element become ssomething like : sm<curr && curr<sm
+If we found the above condition then curr is a winning position for Alice
+and we will update curr==sm and move forward
+
+
+Note : You might think of a wrong idea that if the number of elements to the left of any index(i) is smaller and odd in frequency. We can guarantee that Alice will win.
+No, you cannot guarnatee becuase what if Bob moves the chip directly to the second last piece nothing's stopping him.
+
+
