@@ -52,9 +52,6 @@ Some observation points:
 An empty array can neither be sorted(2) nor unsorted(0).
 A array with only one element can not be unsorted(0).
 
-For, our ease we take just one element to fill our array and that is 1.
-This will help us to not ever check whether the array was sorted or not.
-
 EDGE CASE:
 Now we need to understand to more basic things we cannot declare an array sorted if it has been already declared as unsorted and in between we did not let the array become of size 1.
 eg: ++0+1 is not possible. An unsorted array cannot become sorted.
