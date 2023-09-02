@@ -1,0 +1,106 @@
+import java.util.*;
+public class Main{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            String s = sc.next();
+            Stack<Integer> stack = new Stack<Integer>();
+            int flag=1;
+            for(int i=0;i<s.length() && flag==1;i++){
+                if(stack.size()==1) {stack.pop(); stack.push(1);}
+
+                if(s.charAt(i)=='+'){
+                    if(!stack.isEmpty() && stack.peek()==-1) stack.push(-1);    //if the array is already unsorted
+                    else stack.push(0); //otherwise we cannot predict the state of array on addition of newer element
+                }
+                else if(s.charAt(i)=='-'){
+                    int top = stack.peek();
+                    stack.pop();    //in any case we need to remove the status of the last element and array takes on the status of second last element
+                    if(!stack.isEmpty() && top==1){stack.pop(); stack.push(1);}    //if the array was sorted till now, after removal it still remains sorted, so update the second last status/current last status after removal
+                }
+                else if(s.charAt(i)=='1'){
+                    if(stack.size()<2) continue;
+                    else if(stack.peek()==-1) flag=0;    //not possible, contradiciting
+                    else{ stack.pop(); stack.push(1);}  //if we were in an undecided state now we can confirm we are sorted
+                }
+                else if(s.charAt(i)=='0'){
+                    if(stack.size()<2){flag=0; continue;}
+                    else if(stack.peek()==1) flag=0;    //not possible, contradicting
+                    else{ stack.pop(); stack.push(-1);}  //if we were in an undecided state now we can confirm we are unsorted
+                }
+            }
+            if(flag==0) System.out.println("NO");
+            else System.out.println("YES");
+        }
+        sc.close();
+    }
+}
+
+/*
+LOGIC ---
+Instead of worrying what the question might mean,
+let's just do what it says.
++ -> means add a character in the last of array
+- -> means remove the last character
+1 -> array is sorted
+0 -> array is not sorted
+
+Now we just need to check whether the given sequence of instructions could ever be successfully executed.
+
+Some observation points:
+An empty array can neither be sorted(2) nor unsorted(0).
+A array with only one element can not be unsorted(0).
+
+For, our ease we take just one element to fill our array and that is 1.
+This will help us to not ever check whether the array was sorted or not.
+
+EDGE CASE:
+Now we need to understand to more basic things we cannot declare an array sorted if it has been already declared as unsorted and in between we did not let the array become of size 1.
+eg: ++0+1 is not possible. An unsorted array cannot become sorted.
+But also, ++1+0 is possible. Example : array -> 1,5,3 => 1,5 was sorted and then we added 3 which made it unsorted
+
+So, an unsorted array in future cannot become a sorted array.
+But an sorted array in future can become an unsorted array.
+
+Let's make three categories for ourselves: [Declaring the status of array till now arr[i]]
+1-> array we formed till now is sorted
+-1 -> array we forme dtill now is unsorted
+0 -> we don't know whether the array we formed till now was sorted or unsorted
+
+Now lets consdier an arraylist A:
+
+GENERALISING with predictions:
+Case I: If A[i]=1, then A[i-1]=1 and A[i+1]=0 given i!=0
+So, if at A[i] an array is sorted then at A[i-1] array will still be sorted only. As for A[i+1] we cannot predict. 
+ 
+Case II : If A[i]=-1, then A[i-1]=0 and A[i+1]=-1
+So, if A[i] is unsorted then A[i+1] will still remain unsorted. But we cannot tell A[i-1] is sorted or unsorted.
+
+DECLARING STATUS WITH '+':
+If stack.peek()==-1 (implying unsorted) A[i-1]=-1
+then stack.push(-1) => A[i]=-1
+else stack.push(0) => A[i]=0 we cannot predict whether the addition of the new element wil ldo what if A was already sorted
+
+DECLARING STATUS WITH '-':
+stack.pop(); => A[i] will simply assume the status of A[i-1]
+If stack.peek()==1 (implying sorted) A[i-1]=1
+then stack.pop(); stack.push(1); => A[i-1] will still remain sorted
+
+FINAL VERDICT WITH '1': (testing against what we predicted)
+If A.size()<2 continue;
+If stack.peek()==-1 => NO
+else continue;
+
+FINAL VERDICT WITH '0': (testing against what we predicted)
+If A.size()<2 => NO
+if stack.peek()==1 => NO
+else continue
+
+
+Some good sample testcases to dryrun:
+++1--++
+++1--+0 
+*/
+
+

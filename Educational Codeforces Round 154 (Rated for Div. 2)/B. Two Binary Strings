@@ -1,0 +1,48 @@
+import java.util.*;
+
+public class Main{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            String s1 = sc.next();
+            String s2 = sc.next();
+            int flag=0;
+            for(int i=0;i<s1.length()-1 && flag==0;i++){
+                char y1=s1.charAt(i);
+                char z1=s1.charAt(i+1);
+                char y2=s2.charAt(i);
+                char z2=s2.charAt(i+1);
+                if((y1=='0' && z1=='1') && (y2=='0' && z2=='1')) flag=1;
+            }
+            if(flag==1) System.out.println("YES");
+            else System.out.println("NO");
+        }
+        sc.close();
+    }
+}
+
+/*
+LOGIC ---
+Two important things to know:
+String s1 and s2 starts with 0 and ends with 1.
+So, we have a pattern (01). => a very basic pattern or the smallest string s1 and s2 possible.
+
+By observation:
+If a string exists:
+0 XXXX Y Z XXXX 1
+X,Y,Z are unknown to us and only belong to {0,1}
+
+Now can you guess what Y and Z can be to get our basic pattern.
+i.e, will be Y=0 and Z=1
+Again the string can now become something like :
+0 000 0 1 1111 1
+
+Conclusion:
+Hence if we are able to find the subsequence 01 at same place in both the string s1 and s2 we can make s1 and s2 equal with the operations.
+
+If you are wondering how I reached this conclusion during the contest it was through seeing test case 3 carefully it just hit my mind.
+
+I know know the answer becomes intuitive,
+The thing even I still need to know is how I can become confident that this will the only possible valid solutiona nd no ther way can exist. 
+*/

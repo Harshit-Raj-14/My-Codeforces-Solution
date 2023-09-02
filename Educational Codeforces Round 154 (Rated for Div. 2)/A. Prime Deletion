@@ -1,0 +1,56 @@
+import java.util.*;
+public class Main{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            String s = sc.next();
+            int n1=s.charAt(0)-'0';
+            if(n1==1) System.out.println("13");
+            else if(n1==2) System.out.println("23");
+            else if(n1==3) System.out.println("31");
+            else if(n1==4) System.out.println("43");
+            else if(n1==5) System.out.println("53");
+            else if(n1==6) System.out.println("61");
+            else if(n1==7) System.out.println("71");
+            else if(n1==8) System.out.println("83");
+            else if(n1==9) System.out.println("97");
+        }
+        sc.close();
+    }
+}
+
+/*
+LOGIC ---
+The question simply asks whether a prime can exist after making the operation of deleting an number from the string and keeping the sequence intact.
+We are aware that there is always a two digit number prime for ever 1 to 9.
+Since the input contains all digits 1 to 9,
+we can have a prime number starting from any number and we eliminate all other numbers only left with the prime numebr itself.
+Hence we write an O(1) code.
+*/
+
+/* SECOND METHOD */
+import java.util.*;
+public class Main{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            String s = sc.next();
+            int flag=0;
+            for(int i=0;i<s.length() && flag==0;i++){
+                int n=s.charAt(i)-'0';
+                if(n==1) {System.out.println(17); flag=1;}
+                else if(n==7) {System.out.println(71); flag=1;}
+            }
+        }
+        sc.close();
+    }
+}
+
+/*
+LOGIC---
+Another thing you could have done is picked up two primary numbers let's say 17 and 71.
+So, there is always a string which will have any of the above two numbers.
+But again this is an iterative solution and not O(1).
+*/
