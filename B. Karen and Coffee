@@ -1,0 +1,158 @@
+B. Karen and Coffee
+Codeforces Round 419 (Div. 2)
+
+
+import java.util.*;
+public class main{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int n=sc.nextInt(); //no of recepies
+        int k=sc.nextInt(); //threshold value of number of recpeies to have to fulfill the condition
+        int q=sc.nextInt(); //no of questions
+        int ti[] = new int[n];  //intial temperature in recepie
+        int tf[] = new int[n];  //final temeprature in recepie
+        int minTemp=Integer.MAX_VALUE;
+        int maxTemp=Integer.MIN_VALUE;
+        for(int i=0;i<n;i++){
+            ti[i]=sc.nextInt();
+            tf[i]=sc.nextInt();
+            minTemp=Math.min(minTemp, ti[i]);  //min temp can only come form intial temp range
+            maxTemp=Math.max(maxTemp, tf[i]);  //max temp can only come from final temp range
+        }
+        //making a frequency of all temperatures acquired from recepie ranges
+        int count[] = new int[200002];   //based it on constraints; int count[] = new int[maxTemp+2]; did not used this becuase causing erro in testcase 3 as we would have to then work on some if and else to conver ranges outside of recpie book in questions
+        for(int i=0;i<n;i++){   //apply difference array technique
+            count[ti[i]]++;
+            count[tf[i]+1]--;
+        }
+        ///taking the prefix sum of count since it is still unprocessed
+        for(int i=1;i<count.length;i++){
+            count[i]=count[i-1]+count[i];   //this count has the count of each temperature it was recommneded by a recepie
+        }
+        //Convert count array into boolean array as judge
+        for(int i=0;i<count.length;i++){
+            if(count[i]>=k) count[i]=1;
+            else count[i]=0;
+        }
+        //again take the prefix sum of count array to tell us till t[i] every time how many temperature passed the test condition
+        for(int i=1;i<count.length;i++){
+            count[i]=count[i-1]+count[i];
+        }
+        //now taking in the questions/queries
+        int ans=0;
+        for(int i=0;i<q;i++){
+            int qi=sc.nextInt();    //question intial range
+            int qf=sc.nextInt();    //question final range
+            //if(qf<count.length) 
+            ans=count[qf]-count[qi-1];
+            System.out.println(ans);
+        }
+        sc.close();
+    }
+}
+
+/* DIFFERNECE ARRAY TECHNIQUE FOR RECEPIES TLE */
+import java.util.*;
+public class main{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int n=sc.nextInt(); //no of recepies
+        int k=sc.nextInt(); //threshold value of number of recpeies to have to fulfill the condition
+        int q=sc.nextInt(); //no of questions
+        int ti[] = new int[n];  //intial temperature in recepie
+        int tf[] = new int[n];  //final temeprature in recepie
+        int minTemp=Integer.MAX_VALUE;
+        int maxTemp=Integer.MIN_VALUE;
+        for(int i=0;i<n;i++){
+            ti[i]=sc.nextInt();
+            tf[i]=sc.nextInt();
+            minTemp=Math.min(minTemp, ti[i]);  //min temp can only come form intial temp range
+            maxTemp=Math.max(maxTemp, tf[i]);  //max temp can only come from final temp range
+        }
+        //making a frequency of all temperatures acquired from recepie ranges
+        int count[] = new int[maxTemp+2];
+        for(int i=0;i<n;i++){   //apply difference array technique
+            count[ti[i]]++;
+            count[tf[i]+1]--;
+        }
+        ///taking the prefix sum of count since it is still unprocessed
+        for(int i=1;i<count.length;i++){
+            count[i]=count[i-1]+count[i];
+        }
+        //now taking in the questions/queries
+        for(int i=0;i<q;i++){
+            int qi=sc.nextInt();    //question intial range
+            int qf=sc.nextInt();    //question final range
+            int ans=0;
+            for(int j=qi;j<=qf;j++){
+                if(j<count.length-1 && count[j]>=k) ans++;
+            }
+            System.out.println(ans);
+        }
+        // for(int i=91;i<count.length;i++){
+        //     System.out.println(i+"="+count[i]);
+        // }
+        sc.close();
+    }
+}
+
+/* BRUTE FORCE TLE O(n^2) */
+    import java.util.*;
+    public class main{
+        public static void main(String args[]){
+            Scanner sc = new Scanner(System.in);
+            int n=sc.nextInt(); //no of recepies
+            int k=sc.nextInt(); //threshold value of number of recpeies to have to fulfill the condition
+            int q=sc.nextInt(); //no of questions
+            int ti[] = new int[n];  //intial temperature in recepie
+            int tf[] = new int[n];  //final temeprature in recepie
+            int minTemp=Integer.MAX_VALUE;
+            int maxTemp=Integer.MIN_VALUE;
+            for(int i=0;i<n;i++){
+                ti[i]=sc.nextInt();
+                tf[i]=sc.nextInt();
+                minTemp=Math.min(minTemp, ti[i]);  //min temp can only come form intial temp range
+                maxTemp=Math.max(maxTemp, tf[i]);  //max temp can only come from final temp range
+            }
+            //making a frequency of all temperatures acquired from recepie ranges
+            int count[] = new int[maxTemp+1];
+            for(int i=0;i<n;i++){
+                for(int j=ti[i];j<=tf[i];j++){
+                    count[j]++;
+                }
+            }
+            //now taking in the questions/queries
+            for(int i=0;i<q;i++){
+                int qi=sc.nextInt();    //question intial range
+                int qf=sc.nextInt();    //question final range
+                int ans=0;
+                for(int j=qi;j<=qf;j++){
+                    if(j<count.length-1 && count[j]>=k) ans++;
+                }
+                System.out.println(ans);
+            }
+            sc.close();
+        }
+    }
+
+
+LOGIC ---
+Directly do what a question says
+Create a count frequency for each recepie temp array and match them with the questions
+Whoever passes the condition becomes a part of our answer
+
+What we really notice here is that the one causes TLE is actually the two for loops where we are creating a sum of array based on n queries, every query asking us to add 1 form l to r
+This we can overcome with differnece array technique
+
+With difference array technique we could only turn one O(n^2) into O(n) so still got TLE
+
+We still need to answer q queries but we are using O(n^2)
+For that purpose why not make it a boolean array of 0 and 1 to make it act like as a judge
+Set 1 if the temperature has more than k  recommendation
+Set 0 if the temperature has less than k recommendation
+
+Now we again take the prefix sum of the array, this will make the array say that at temperature t[i] we can say that these many temperatures from 0 -> t[i] have passed the test(condition>=k)
+
+Now in queries since we need to only report which temperatures had their threshold value exceeded between range l to r
+We can directly report count[r]-count[l]+1
+In turn we are saying that the ans=(number of temperature that passed the testcase till r) - (number of temperature that passed the test condtion till l) + 1(include the final itself)
