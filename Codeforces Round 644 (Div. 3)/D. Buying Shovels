@@ -1,3 +1,4 @@
+/* USING FACTORIAL APPROACH k*x=n */
 import java.util.*;
 public class Main{
     public static void main(String args[]){
@@ -32,6 +33,7 @@ The mnimum of above two scenarios will give us our answer.
 */
 
 
+/* USING GREEDY APPROACH */
 import java.util.*;
 public class Main{
     public static void main(String args[]){
