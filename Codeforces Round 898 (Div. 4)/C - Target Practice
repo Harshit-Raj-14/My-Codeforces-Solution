@@ -1,0 +1,40 @@
+import java.util.*;
+public class Main{
+    public static void main(String args[]){
+        Scanner sc =new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            char arr[][] = new char[11][11];
+            int ans=0;
+            for(int i=1;i<=10;i++){
+                String line = sc.next();
+                for(int j=1;j<=10;j++){
+                    arr[i][j] = line.charAt(j-1);
+                    if(arr[i][j]=='X'){
+                        if((i==1 || i==10) || (j==1 || j==10)) ans+=1;
+                        else if((i==2 || i==9) || (j==2 || j==9)) ans+=2;
+                        else if((i==3 || i==8) || (j==3 || j==8)) ans+=3;
+                        else if((i==4 || i==7) || (j==4 || j==7)) ans+=4;
+                        else if((i==5 || i==6) || (j==5 || j==6)) ans+=5;
+                    }
+                }
+            }
+            System.out.println(ans);
+        }
+        sc.close();
+    }
+}
+
+/*
+LOGIC---
+I think there are many way to do this question, make 10 string, matrix, arraylist. maybe even hashmap.
+I went with matrix.
+Observe the outermost ring is 1 point (that's complete i=1,i=10 with j=1 and j=10)
+As you move in the target value increases and so dies i and j.
+Just check on these i and j.
+You will have your answer.
+
+TC-O(10x10)
+
+You can find points of a cell in many ways. one simple and easy way is the distance from any of the four edges.
+*/

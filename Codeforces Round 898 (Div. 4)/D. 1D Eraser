@@ -1,0 +1,32 @@
+    import java.util.*;
+    public class Main{
+        public static void main(String args[]){
+            Scanner sc =new Scanner(System.in);
+            int t=sc.nextInt();
+            while(t-->0){
+                int n=sc.nextInt();
+                int k=sc.nextInt();
+                String s = sc.next();
+                char arr[] = s.toCharArray();
+                int moves=0;
+                for(int i=0;i<arr.length;){
+                    if(arr[i]=='B'){    //if B found slide to next window
+                        i+=k;
+                        moves++;
+                    }
+                    else i++;   //if 'B' not found check next index
+                }
+                System.out.println(moves);
+            }
+            sc.close();
+        }
+    }
+    
+     
+    /*
+    LOGIC---
+     From each black, make all cells white
+     jump now directly to check index i+=k
+     becuase till there we now know all are white
+     so its more like a jumping window than a sliding window
+    */

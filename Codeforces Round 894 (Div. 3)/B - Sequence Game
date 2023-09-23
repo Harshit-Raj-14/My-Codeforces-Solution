@@ -1,0 +1,44 @@
+import java.util.*;
+public class Main{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            int n=sc.nextInt(); 
+            int b[] = new int[n];
+            for(int i=0;i<b.length;i++){
+                b[i]=sc.nextInt();
+            }
+            ArrayList<Integer> ans = new ArrayList<>(); //this list is our 'a' array
+            ans.add(b[0]); //first number is always written
+            for(int i=1;i<b.length;i++){
+                if(b[i-1]<=b[i]) ans.add(b[i]);
+                else{
+                    ans.add(b[i]);
+                    ans.add(b[i]);
+                }
+            }
+            //printing our ans
+            System.out.println(ans.size());
+            for(int i=0;i<ans.size();i++){
+                System.out.print(ans.get(i)+" ");
+            }
+            System.out.println();
+        }
+        sc.close();
+    }
+}
+
+/*
+LOGIC---
+Constraint we need to remember : It is given that the maximum 'a' array we can create is double of 'b'.
+Now first element of b was always taken from 'a'.
+So, add b[1] to our ans.
+Now for the rest of the element in 'b' was only chosen becuase.
+b[i] -> meant a[i] only when a[i-1]<=a[i]
+So, for our convenience we first check the condition that can be satisfied if yes directly add that number. 
+Otherwise, wecan always add the number equal to itself previously and then put that number insequence it will be a possible sequence because the conditons still work.
+
+eg: b=[4 6 3]
+So, a will be a=[4 6 3 3]
+*/

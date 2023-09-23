@@ -1,0 +1,97 @@
+import java.util.*;
+public class Main2{
+    public static void main(String args[]){
+        Scanner sc =new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            String s = sc.next();
+            int countA=0;
+            int countB=0;
+            ArrayList<Integer> GroupA=new ArrayList<>();
+            int currgroupA=0;
+            int consecutiveB=0;
+            for(int i=0;i<s.length();i++){
+                if(i>0 && s.charAt(i)=='B' && s.charAt(i-1)=='B') consecutiveB=1;
+                if(s.charAt(i)=='B'){
+                    countB++;
+                    if(currgroupA>0) GroupA.add(currgroupA);
+                    currgroupA=0;   //start seeing for next group
+                }
+                else{   //found A at i
+                    countA++;
+                    currgroupA++;
+                }
+            }
+            if(currgroupA>0) GroupA.add(currgroupA);    //make a final check
+            int ans=0;
+            if(countA==0 || countB==0) ans=0;   //case I : no A or B => no coins
+            else if(consecutiveB==1) ans=countA; // Case II: consecutive B => all A can be taken
+            else if(countB>=GroupA.size()) ans=countA;   //Case III: B is more than groups of A that means one at end => all A taken
+            else{   //Case IV: groups of A mroe than B => A at ends => all A-smallest group of A(not taken)
+                Collections.sort(GroupA);
+                ans=countA-GroupA.get(0);
+            }
+            System.out.println(ans);
+        }
+        sc.close();
+    }
+}
+
+/*
+LOGIC---
+1 gold coin for turning:
+AB -> BC
+BA -> CB
+
+In a sense, it's useful to think of the B as "eating" the As in a sense: and B itself is exchanged by C
+A is decreasing, number of B remains same and a C gets added.
+coins = turns made
+max coins that can be made = total no of A
+
+So, our goal to find max coins is finding the maximum number of A's which can be converted
+
+Observations:
+Case I: A only on one side of B
+eg: BAAAAAA
+(BA)AAAA => C(BA)AAA => CCBAAA => CCCBAA => CCCCBA => CCCCCB
+total gold coins earned =5 = 5 turning = 5 A's after B
+
+similarly, eg: AAAAAB => BCCCCC
+total gold coins earned  =5 = 5 turning = 5 A's followed by B
+
+
+Case II: more than 1 B's and one B at either end
+Good example :
+AABAAAB 
+Think like this : (AAB)(AAAB) => total 5 coins max
+same will happen for BAAABAA
+
+Case III: THE CHOICE - single B surrounded by both side A
+Good example : AABAAAA
+Here we had a choice to choose which side with a single B and to get max coins we chose the side with max A
+B can't go both ways and need to choose one way => one thing comes is dp but let's still try to use observation more
+Now since only 1 B so only one pair choose the greater side : AA(BAA) => 3 coins max
+
+Case IV: Two or more consecutive B's
+eg: AAABBAAAA => no need for choices now -> (AAAB)(BAAAA)
+all A can be converted
+
+Case V: if A==0 or B==0 => we won't be able to perform any operation => coins=0
+
+Case VI : FINAL CASE : Start and end with A, and there are no two Bs next to each other
+eg: AAAABAAAAAABAAAAAAABAAA
+In this scenario: it is best to neglect the smalelst group of A and convert other A's
+coins = all A's - smallest group of A
+
+
+greedy: each B takes the largest group available, and we stop once no more Bs are free.
+
+
+SUMMARY :
+GENERAL CASE : B1A1B2A2B3A3 => where these are groups
+CASE I: A==0 or B==0 => coins=0
+Case II: type: single B => AAA...B or, BAA....AAA => coins = total no of A
+Case III: type: two consecutive B => AAA...BBAAA...AA => coins = total no of A
+Case IV: type : more than 1 b and 1 B at either end => AAA..BAAA...B or BAAA....BAAAAA... => coins = total no of A => condition : no of group of A is equal to group of B
+Case V: type : starting and ending by A => AAA...BA...ABA....ABAA....BAA....A => coins = total A's - smallest group of A => condition no of group B is one less than A (generality)
+*/

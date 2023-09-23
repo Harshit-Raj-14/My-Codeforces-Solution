@@ -1,0 +1,108 @@
+/* USING SLIDING WINDOW */
+import java.util.*;
+public class Main{
+    public static void main(String args[]){
+        Scanner sc =new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            int n=sc.nextInt();
+            int k=sc.nextInt(); //target
+            int fruit[] = new int[n];
+            for(int i=0;i<n;i++){
+                fruit[i]=sc.nextInt();
+            }
+            int h[] = new int[n];
+            for(int i=0;i<n;i++){
+                h[i]=sc.nextInt();
+            }
+            int ans=0;
+            long sum=0;
+            int start=0;    //start and end of subarray
+            for(int end=0;end<n;end++){
+                if(end>0 && h[end-1]%h[end]!=0){    //move to the next subarray
+                    sum=0;
+                    start=end;
+                }
+                sum+=fruit[end];
+                while(start<=end && sum>k){
+                    sum-=fruit[start];  //moving the sliding window
+                    start++;
+                }
+                int currwindowlength=end-start+1;
+                ans=Math.max(ans, currwindowlength);
+            }
+            System.out.println(ans);
+        }
+        sc.close();
+    }
+}
+*/
+
+
+/*
+LOGIC---
+SLIDING WINDOW
+
+valid subarray :
+h[i]%h[i+1]==0
+sum<=k
+
+We know that the first conditon divide the whole tree arrays into various groups.
+eg: 4 4 2 4 1 => [4 4 2] [4 1] => these two subarryas are valid for the first conditon : h[i]%h[i+1]==0
+Now,
+we produce these subrrays and slide our window in them while getting maximum answer.
+*/
+
+
+
+
+
+/* O(n^2) SOLUTION TLE 
+import java.util.*;
+public class Main{
+    public static void main(String args[]){
+        Scanner sc =new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            int n=sc.nextInt();
+            int k=sc.nextInt();
+            int arr[] = new int[n];
+            for(int i=0;i<arr.length;i++){
+                arr[i]=sc.nextInt();
+            }
+            int height[] = new int[n];
+            for(int i=0;i<arr.length;i++){
+                height[i]=sc.nextInt();
+            }
+            int isDiv[] = new int[n];//boolean array
+            for(int i=0;i<n;i++){
+                if(i<n-1 && height[i]%height[i+1]==0) isDiv[i]=1;
+            }
+            int ans=0;
+            for(int i=0;i<n;i++){
+                int applegot=0;
+                int subarraylength=0;
+                int index=i;
+                while(isDiv[index]==1){
+                    applegot+=arr[index];
+                    subarraylength++;
+                    index++;
+                    if(applegot<=k) ans=Math.max(ans, subarraylength);
+                }
+                if(applegot+arr[index]<=k) ans=Math.max(ans, subarraylength+1); //not we still need to consider the last element where h[i]%h[i+1]==0 does not hold //see testcase 1
+            }
+            
+            System.out.println(ans);
+        }
+        sc.close();
+    }
+}
+*/
+
+/* 
+WHY THIS BRUTE FORCE GIVES TLE
+Say, our isDiv ---> 111111000111111100111
+What you are doing everytime is starting from the firt i index and travel to some idnex to find subarray.
+But this is highly inefficient as you are repating the summing process.
+How you can fix this is by  kaing out valid windows and sliding in them only.
+*/

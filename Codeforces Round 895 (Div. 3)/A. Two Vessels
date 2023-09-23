@@ -1,0 +1,93 @@
+/* O(1) SOLUTION */
+import java.util.*;
+public class Main{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-->0){
+            int a = sc.nextInt();   //water in vessel A
+            int b = sc.nextInt();   //water in vessel B
+            int c = sc.nextInt();   //water capacity of cup to move water
+            int waterdiff=Math.abs(b-a);
+            if(waterdiff==0) System.out.println(0);
+            else if(c>waterdiff) System.out.println(1);
+            else if(waterdiff%2==0){
+                int fill=waterdiff/2;
+                if(fill%c==0) System.out.println(fill/c);
+                else System.out.println(fill/c + 1);
+            }
+            else{
+                int fill=waterdiff/2;
+                System.out.println(fill/c + 1);
+            }
+        }
+        sc.close();
+    }
+}
+
+/*
+LOGIC---
+We check for three cases: 
+if the difference is already zero, it outputs 0 moves; 
+if the cup's capacity is sufficient to transfer the entire difference, it outputs 1 move; 
+and finally, for non-zero differences, it calculates the number of times the cup must be filled and emptied to balance the vessels. 
+Depending on whether the difference is even or odd and whether the division by the cup's capacity results in an even or odd number, 
+it outputs the minimum number of moves required to equalize the water levels between the two vessels.
+
+Time Complexity: O(1)
+*/
+
+
+
+/* O(n) SOLUTION */
+import java.util.*;
+public class Main2{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-->0){
+            int a = sc.nextInt();   //water in vessel A
+            int b = sc.nextInt();   //water in vessel B
+            int c = sc.nextInt();   //water capacity of cup to move water
+            int max=Math.max(a,b);  //to decide which contains more water
+            int min=Math.min(a,b);  //to decide which contains less water
+            if((max-min)==0) System.out.println(0);
+            else if(c>(max-min)) System.out.println(1);
+            else{
+                int count=0;
+                while(max>min){
+                    min+=c;
+                    max-=c;
+                    count++;
+                }
+                System.out.println(count);
+            }
+        }
+        sc.close();
+    }
+}
+
+/*
+LOGIC---
+Let's se ewhat's given to us:
+a-> water in vessel A
+b-> water in vessel B
+c-> size of cup used to exchange water
+Objective -> to make water in a and b equal using cup c. How many minimum times we need to use cup c to exchange water?
+
+Logically thinking,
+We ened to transfer water from the mroe fileld vessel to less fileld vessel.
+So, first we find these two uing max and min.
+
+Now the gap which we need to fill is the (differnce of max and min)/2 to make them equal.
+Now here cna eb two things to think about:
+Case II: If the both vessels are fileld eqaully no need to use c.
+
+Case I : If c turns out to be greater than the differnce that needs to be overcome
+So, in that case all we need to do is use the cup c only once.
+
+Case III: We simply do the work just as the question describes.
+Take out water of capacity c from the higher fileld vessel and put it in the lesser filled vessel.
+
+Time Complexity: O(n)
+*/

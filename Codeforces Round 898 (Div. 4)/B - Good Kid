@@ -1,0 +1,33 @@
+import java.util.*;
+public class Main{
+    public static void main(String args[]){
+        Scanner sc =new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            int n=sc.nextInt();
+            int arr[] = new int[n];
+            for(int i=0;i<n;i++){
+                arr[i]=sc.nextInt();
+            }
+            Arrays.sort(arr);
+            long product=arr[0]+1;
+            for(int i=1;i<n;i++){
+                product*=arr[i];
+            }
+            System.out.println(product);
+        }
+        sc.close();
+    }
+}
+
+/*
+LOGIC---
+First you might think, increasing the largest number by 1 will give you a greater product.
+But, NO.
+Increasing the smaller number by 1 gives you a greater product.
+No, need to go in maths.
+Just check the testcases, or learn by making a mistake and you will relaise yourself.
+Sort the array -> get smallest number -> increase it by 1 -> get the product
+
+TC-O(nlogn)
+*/

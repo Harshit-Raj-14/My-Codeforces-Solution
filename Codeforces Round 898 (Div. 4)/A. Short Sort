@@ -1,0 +1,21 @@
+import java.util.*;
+public class Main{
+    public static void main(String args[]){
+        Scanner sc =new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            String s = sc.next();
+            if(s.equals("bca") || s.equals("cab")) System.out.println("NO");
+            else System.out.println("YES");
+        }
+        sc.close();
+    }
+}
+
+/*
+LOGIC---
+Given 3 numbers
+permutation : 3!=6 combinations
+cannot be fixed ={bca, cab} = all elements at wrong position = NO
+other combos=YES
+*/

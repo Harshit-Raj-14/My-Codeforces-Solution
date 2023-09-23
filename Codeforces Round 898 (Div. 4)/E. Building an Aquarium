@@ -1,0 +1,51 @@
+import java.util.*;
+public class Main{
+
+    public static boolean checkBinary(long mid, long arr[], long x){
+        long waterused=0;
+        for(int i=0;i<arr.length;i++){
+            if(mid>arr[i]){    //when height of vessel is mroe than coral height we cna put water
+                waterused+=(mid-arr[i]);
+            }
+        }
+        //System.out.println(mid+"= " +waterused);
+        if(waterused<=x) return true;
+        else return false;
+    }
+    public static void main(String args[]){
+        Scanner sc =new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            int n=sc.nextInt();
+            long x=sc.nextLong();
+            long arr[] = new long[n];
+            for(int i=0;i<arr.length;i++){
+                arr[i]=sc.nextLong();
+            }
+            long hmax=0;
+            for(int i=0;i<arr.length;i++){
+                hmax=Math.max(hmax, arr[i]);
+            }
+            hmax=hmax+x;     //in case amount of water given exceeds the coral height
+            long l=0;
+            long r=hmax;
+            long mid=0;
+            long ans=0;
+            while(l<=r){
+                mid=l+(r-l)/2;
+                if(checkBinary(mid, arr, x)){
+                    l=mid+1;
+                    ans=mid;
+                }
+                else r=mid-1;
+            }
+            System.out.println(ans);
+        }
+        sc.close();
+    }
+}
+
+/*
+LOGIC---
+BINARY SEARCH ON ANSWER
+*/

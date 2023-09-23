@@ -1,0 +1,106 @@
+import java.util.*;
+public class main{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            int n=sc.nextInt();     //length of array
+            int x=sc.nextInt();     //index at which arr[x]=1 and rest index elements are 0
+            int m=sc.nextInt();
+            int lbd=x;  //[lbd,rbd] => posisbilities range where 1 can exist after swapping
+            int ubd=x;
+            for(int i=0;i<m;i++){   //taking m queries
+                int l=sc.nextInt();
+                int r=sc.nextInt();
+                if(l<=lbd && lbd<=r) lbd=l; //lowerbound tolerance increased
+                if(l<=ubd && ubd<=r) ubd=r; //upperbound tolerance increased
+                /*
+                other way of writing
+                if(l<=lbd && lbd<=r){
+                    lbd=Math.min(lbd,l);
+                    ubd=Math.max(ubd,r);
+                }
+                */
+            }
+            System.out.println(ubd-lbd+1);  //range size where we cna have 1
+        }
+    }
+}
+
+/*
+LOGIC---
+Initially we have at position x => 1
+Now we are given queires of (l,r)
+We are allowed to make as many swaps as we want for the range in the query
+
+We are required to find the number of places where 1 can be after all queries.
+
+Its like asking how many 1's can we make
+
+BRUTE FORCE - TLE---
+So, if we are given a range and that range got 1 we can make every other element 1 by swapping
+Eventually, if other query comes next which has all zero,
+but the repvious query with 1 covered it. the arrya could have bene update din the rpevious array such that the enxt query could have gotten 1.
+So, every time you visit a query, if it contians 1 make all elements 1.
+And keep updating array for next query.
+
+But this method would turn us into an O(n^2) method updating array each time and searching by lienar search of O(n).
+We just need to lookup and which can be done by set in O(1).
+
+So, if the index contains 1 put in hashset. Hahsset will intially have x.
+If x falls in range[l,r] => by swapping we can have all elements as 1. So put thos eall indexes in hashet since they become 1.
+If any other index now has 1 in range => repeat above
+if not then it is not possible to make s et with given (l,r) query so check next query.
+
+This method fsield becuase test case 2 ask to make you big arrays I mean very big arrays so MLE
+
+OPTIMISED---
+TWO POINTER APPROACH
+STARTING : only x is 1
+So, in the baove scenario in a way we always ended up with a continuous range of 1 whenver a query was implemented
+So, let's say we have and upperbound(upd) and lowerbound(lbd) => which represents the range where very index cna be made 1.
+Initial condition will have upd=lbd=x
+
+Now for a query(l,r) let's say lbd falls udner the range : l<=lbd<=r
+Then that means the entire range can be made into 1 => lbd=l (something like our toleranc eor true range of getting 1 increased)
+
+Now, in similar manner we need to upgrade upd:
+if l<=upd<=r => upd=r
+
+The range lbd->ubd length is our answer => the possible rnag eof indexes where 1 can exist
+*/
+
+
+
+/* BRUTE FORCE - MLE 
+import java.util.*;
+public class main{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            int n=sc.nextInt();     //length of array
+            int x=sc.nextInt();     //index at which arr[x]=1 and rest index elements are 0
+            int m=sc.nextInt();
+            int arr[] = new int[n+1];
+            arr[x]=1;   //making elemnt at index x be set
+            HashSet<Integer> set=new HashSet<>();
+            set.add(x);
+            for(int i=0;i<m;i++){   //taking m queries
+                int l=sc.nextInt();
+                int r=sc.nextInt();
+                int flag=0;
+                for(int j=l;j<=r;j++){
+                    if(set.contains(j)) flag=1;  //range contains 1
+                }
+                if(flag==1){    ///since it contains one we cann  proceed adding all those indexes to our set 
+                    for(int j=l;j<=r;j++){
+                        set.add(j);
+                    }
+                }
+            }
+            System.out.println(set.size());
+        }
+    }
+}
+*/
