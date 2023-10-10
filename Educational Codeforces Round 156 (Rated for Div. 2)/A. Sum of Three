@@ -1,0 +1,51 @@
+import java.util.*;
+public class Main{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            int n=sc.nextInt();
+            if(n<7) System.out.println("NO");
+            else{
+                if(n%3!=0){
+                    if((n-3)%3==0 || (n-3)==1 || (n-3)==2) System.out.println("NO");
+                    else{
+                        System.out.println("YES");
+                        System.out.println(1+" "+2+" "+(n-3));
+                    }
+                }
+                else if(n%3==0){
+                    if((n-5)%3==0 || (n-5)==1 || (n-5)==4) System.out.println("NO");
+                    else{
+                        System.out.println("YES");
+                        System.out.println(1+" "+4+" "+(n-5));
+                    }
+                }
+            }
+        }
+        sc.close();
+    }
+}
+
+/*
+LOGIC---
+Objective : to find x,y,z such that x+y+z=n; x,y,z are distinct and x,y,z are not divisible by 3
+
+So, n<7 => NO
+n=7 => 1,2,4
+n=8 => 1,2,5 
+n=9 => no
+n=10 => 1,2,7
+n=15 => 1,2,12 wrong, 2,5,8 correct
+
+Observation made from n=10 and n=15:
+If n is not divisible by 3 ans will be 1,2,(n-3) since n is not divisble by 3, subtracting 3 will give us a number not divisble by 3 and we need to make sure n-3 is not 1 and 2.
+
+If n is divisible by 3 ans will be 1,4,(n-7) since n is divisble by 3, subtracting 3 or any of its multiple will make z also a multiple of 3 so instead we do n-5 which is not divisble by 3. 
+Since, n-(1+2) or n-(2+4) will not work as they will proudce a divisible of 3 value.
+
+Note possible triplets start : (2,5), (1,4), (2,7), (1,5)... => which one to use
+Ans : (1,4) reason its the smallest sum 5 in all the above. So that we can get maximum answers inculcated. 
+
+Hence we dealt with two cases n%3==0 and n%3!=0. And edge cases with n<=6 which has no solution.
+*/

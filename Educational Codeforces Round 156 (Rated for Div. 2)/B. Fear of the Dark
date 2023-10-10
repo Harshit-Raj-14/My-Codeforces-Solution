@@ -1,0 +1,70 @@
+import java.util.*;
+public class Main{
+
+    public static double distance(int x1, int x2, int y1, int y2){
+        double dist = Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
+        return dist;
+    }
+
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            int px=sc.nextInt();   
+            int py=sc.nextInt();
+            int ax=sc.nextInt();
+            int ay=sc.nextInt();
+            int bx=sc.nextInt();
+            int by=sc.nextInt();
+
+            double dAO = distance(ax,0,ay,0);   //distance between A and O
+            double dAP = distance(ax,px,ay,py);
+            double dBO = distance(bx,0,by,0);
+            double dBP = distance(bx,px,by,py);
+            double dAB = distance(bx,ax,by,ay);
+            double ans=0;
+
+            if(Math.min(dAP,dBP)==dAP && Math.min(dAO, dBO)==dAO){      //we can do it using only A as OP is closer to A and can be fit alone inside A
+                ans=Math.max(dAP,dAO);
+            }
+            else if(Math.min(dAP,dBP)==dBP && Math.min(dAO, dBO)==dBO){     //we can do it using only B as OP is closer to B
+                ans=Math.max(dBP,dBO);
+            }
+            else{
+                ans=Math.max(Math.min(dAP,dBP), Math.min(dAO, dBO));    //either O or P or both are on boundary of circle
+                if(dAB>2*ans) ans=dAB/2;    //O and P are inside one each circle
+            }
+            System.out.println(ans);
+        }
+        sc.close();
+    }
+}
+
+/*
+LOGIC---
+Objective : to find x,y,z such that x+y+z=n; x,y,z are distinct and x,y,z are not divisible by 3
+
+From each A and B light sources we can make a circle of radius w to light the path form origin to P.
+
+GENERAL CASES :
+Case I: Use only light A => A includes O and P and B is far away
+Case II : Use only light B => B includes O and P and A is far away
+Use light A and B together
+
+
+
+You have to consider 3 cases:
+I:
+O and P are closer to B than they are to A. That means that both O and P are both in the circle A,
+starting and ending points will lie in circle having 'a' as center i.e. dist(a, origin) <= dist(b, origin) and dist(a, p) <= dist(b, p) then only lantern a is relevant so we can set ans as max(dist(a,origin),dist(a,p))
+
+II:
+O and P are closer to A than they are to B: Similar as case 1
+
+III:
+One of them is closer to A and the other is closer to B: That means the circles are going to intersect, so you take the distance between A and B into account as well, 
+while making sure that the points P and O lay in the circles When you think about case 3 the way we can get minimum w is to have O on one circle and P on other circle. 
+Hence we do w = dAB/2.
+the starting and ending points lie in different circles, so we take the answer as the maximum of the distance between origin and the closer lantern, 
+distance between target and closer lantern and half the distance between the lanterns (as this time we need both the lanterns so their circles must intersect or touch each other)
+*/
