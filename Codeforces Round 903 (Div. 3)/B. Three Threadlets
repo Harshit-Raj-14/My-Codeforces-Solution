@@ -1,0 +1,44 @@
+import java.util.*;
+public class main{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int T=sc.nextInt();
+        while(T-->0){
+            int arr[] = new int[3];
+            for(int i=0;i<3;i++){
+                arr[i]=sc.nextInt(); 
+            }
+            Arrays.sort(arr);
+            int possible=0;
+            int a=arr[0], b=arr[1], c=arr[2];
+            if(c%a!=0 || b%a!=0) possible=0;
+            if(a==b && b==c) possible=1;
+            else{
+                int count=0;
+                if(a==b && (c==2*a || c==4*a || c==2*b+a)) possible=1;
+                else if((b==2*a && c==2*a) || (b==2*a && c==a+b)) possible=1; 
+            }
+            if(possible==1)System.out.println("YES");
+            else System.out.println("NO");
+        }
+    }
+}
+
+/*
+LOGIC---
+Sort the arrray to identify the smallest and longes tthread.
+There is a subtle significance to us being given only three cuts.
+
+On observing I arrived at the following possiblities:
+
+=> if b and c are not multiples of a we cannot arive at a solution.
+
+=> cut c only once => (a==b && c==2*a)  //eg: 2 2 4
+=> cut c thrice => (a==b && c==4*a)     //eg : 2 2 8
+=> cut c thrice => (a==b && c==2*b+a) => cut c into 2*b and one a again cut that 2b into two b's i.e. also two a's  //eg: 4 4 12
+
+=> cut c only once and b cut once (a!=b && (b==2*a && c==2*a))  //eg: 4 8 8
+=> cut c twice and b cut once (a!=b && (b==2*a && (c==a+b && b==2*a))) (one cut on b) && (two cuts on c=b,a and then again cut b into two a) eg: 1,2,3
+
+
+*/

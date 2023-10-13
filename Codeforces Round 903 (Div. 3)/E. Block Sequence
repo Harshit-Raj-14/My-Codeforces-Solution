@@ -1,0 +1,58 @@
+import java.util.*;
+public class main{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            int n = sc.nextInt();
+            int[] a = new int[n];
+            for (int i = 0; i < n; i++) {
+                a[i] = sc.nextInt();
+            }
+            int[] dp = new int[n + 1];
+            for (int i=n-1; i>=0; i--) {
+            int remove = 1 + dp[i+1];
+            int idx = i + a[i] + 1;
+            int keep=Integer.MAX_VALUE;
+            if (idx<=n) keep = dp[idx];
+            dp[i] = Math.min(remove, keep);
+        }
+        System.out.println(dp[0]);
+        }
+    }
+}
+
+/*
+LOGIC---
+BLOCK DEFINITION
+[block length, a1, a2, a3, ...]
+eg : [5, 7,2,3,4,6]
+note : block length is not counted when counting length of block
+so if block length = b, length of full block =b+1
+
+An array is beautiful if we can divide array into blocks.
+Otherwise, operation -> remove any one element in one operation
+
+To find : minimum number of operation to make array beautiful
+
+Now, we understand that we can at the end make any sequence beautiful if we delete all the numbers. eg: 5 6 3 2
+
+Wherever we are standing in an array we have a choice whether to make that a block start or not.
+If we take a block sart it will become the length of the block also.
+Also, we will observe that there is no need to apply operation on the lements which are goign to be inculcated in a block. becuase it will not make a diffenrec ein stating whether the array is beautiful or not.
+An array is only beutiful if we can form a block and it depends only on the choice of rist elemtn => the block length.
+
+So, choice of operation whether to keep that elemtn as block length or remove it => DP
+
+
+In an array:
+a0 a1 a2 a3 a4 a5 a6 a7 a8
+
+Let's say dp[4]:
+If a4 is taken : then we need to get the best answer of dp[4 + a[4]+1] => keep=dp[i+a[i]+1]
+If a4 is not taken : then we need to get the best answer of dp[4 + 1] => remove = dp[i+1]+1 //extra one added to count removal of that element
+
+d[4] = Math.min(dp[4 + a[4]+1], dp[4 + 1] + 1)
+
+dp[i] = Math.min(remove, keep);
+*/

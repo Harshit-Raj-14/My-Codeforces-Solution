@@ -1,0 +1,63 @@
+import java.util.*;
+public class main{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            int n=sc.nextInt(); //purchase power
+            int k=sc.nextInt(); //number of sweets
+            System.out.println(Math.min((int)Math.pow(2,k), n+1));
+        }
+        sc.close();
+    }
+}
+
+
+/* LOGIC---
+Price of ith sweet = 2^i
+To find : differnet ways to buy dessert
+no sweet repeated twice
+
+
+Price of sweets in general : 1,2,4,8,16,32,64,.....
+
+Since there are k sweets: total ways to buy sweets if infinte money = 2^k (buy that sweet or don't buy that sweet)
+
+So, if there were 0 sweets => 1 way => {}
+if 1 sweet => 2 way => {}, {1}
+if 2 sweet => 4 way => {}, {1}, {2}, {1,2}
+if 3 sweet => 8 way
+
+So, to buy ith sweet there are 2^(i+1) ways
+So, to buy k-1th sweet => 2^k ways
+
+
+Now, for a purchasing power n : 
+Case I: if (n>=2^k) 
+=> hence we have more than enough money to buy everything => how to buy (k-1)-th sweet it costs 2^(k-1) and to buy the remaining 0th to k-2th sweet it will cost 2^(k-1)
+2^(k-1) + 2^(k-1) = 2^k money to buy k sweets in total =>most important fact
+Since we are buying k sweets => 2^k ways to buy these sweets
+
+
+Case II: if(n<2^k)
+A way of purchase can be represented as : 10111101101011...
+something like this
+in a way this seems similar like a binary number
+and if we consdier the abov as a binary number we can say that : making all numbers is possible with it.
+So, you can make 0->n possible combinations of purchases
+And each of this combination will be unique
+So, n+1 ways are possible.
+
+
+
+index : 0 1 2 3 4 5 ..... k-1
+cost  : 1 2 4 8 16 32     2^k-1
+ways  : 2 4 8 16 32 64    2^k
+
+Conclusion : 
+if n>=2^k-1 => ways = 2^k
+Now if n<2^k-1 => ways =n+1
+Since, with possible given ways : you can form any number between 0 to n
+
+Hence maximum possible ways = 2^k
+*/

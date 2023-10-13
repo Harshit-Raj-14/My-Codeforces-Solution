@@ -1,0 +1,76 @@
+import java.util.*;
+public class main{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            int n=sc.nextInt();
+            int arr[] = new int[n]; 
+            for(int i=0;i<n;i++){
+                arr[i]=sc.nextInt();
+            }
+            HashMap<Integer, Integer> map = new HashMap<>();
+            for(int i=0;i<n;i++){
+                for(int j=2; j*j<=arr[i]; j++){
+                    while(arr[i]%j==0){
+                        map.put(j,map.getOrDefault(j,0)+1);
+                        arr[i]/=j;
+                    }
+                }
+                if(arr[i]>1) map.put(arr[i],map.getOrDefault(arr[i],0)+1);
+            }
+            int possible=1;
+            for (Map.Entry<Integer, Integer> entry : map.entrySet()){
+                if(entry.getValue()%n!=0) possible=0;
+            }
+            if(possible==0) System.out.println("NO");
+            else System.out.println("YES");
+        }
+    }
+}
+
+/*
+LOGIC---
+In a way we are taking a divisor from a(i) and distributing it to some other number a(j) by multiplying it with it.
+
+In a way we are picking a prime factor of a number and sending it to other number.
+
+Observation : after each operation product of entire array does not change. [IMPORTANT]
+
+A simple thought, while keeping the product of entire array same, we need to make all numbers equal.
+How do you do that?
+If we have a prime factor p and it has n occurences.
+We can give one p to every element and make them equal.
+Hence if we have n freuqency of p we can distribute it to every elemnt uniformly and make array equal.
+
+arr={a1,a2,a3,a4,a5a,6}
+Product of array = P
+a1xa2xa3xa4xa5xa6 = P   //and cosndier we succeded in makign all elements equal of prime constituent p
+pxpxpxpxpxp = P
+p^6=P
+
+Hence we want every prime factor to be a multiple of n for making all elemnts equal. 
+
+In a way we can say that if we have n prime factors we can distribute it to all the numbers.
+So let's say on prime facotrising all the numbers we get a collection of-
+{2^n, 3^n, 5^6n}
+We can distribute 1 2's to all the numbers.
+We can distirbute 1 3's to all the numbers.
+We cna distirubte 6 5's to all the numbers.
+The number which has that power came from will decrease by one count and will get added to other which do not have that.
+
+Approach-
+Make a map of all prime factors along with their count.
+If any freuqency is not a multiple of n we fail.
+
+Example-
+100 2 50 10 1
+(2x2x5x5) || (2) || (2x5x5) || (2x5) || (1)
+2 -> 5
+5 -> 5
+No need of 1 as it is not prime factor it will always exist as freuqnecy of multiple of n.
+We can move 2's and 5's as needed to places and make all ements equal.
+Since 2 and 5 have pwoer multiple sof length of array(n=5) we are sure that we can make elemtns equal.
+*/
+
+

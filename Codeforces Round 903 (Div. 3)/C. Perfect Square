@@ -1,0 +1,44 @@
+import java.util.*;
+public class main2{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int T=sc.nextInt();
+        while(T-->0){
+            int n=sc.nextInt();
+            char arr[][] = new char[n][n]; 
+            for(int i=0;i<n;i++){
+                String s = sc.next();
+                for(int j=0;j<n;j++){
+                    arr[i][j] = s.charAt(j);
+                }
+            }
+            int count=0;
+            int possible=1;
+            for(int i=0;i<n/2;i++){
+                for(int j=0;j<n/2;j++){
+                    char p = arr[i][j];
+                    char q = arr[n-1-j][i];
+                    char r = arr[n-1-i][n-1-j];
+                    char s = arr[j][n-1-i];
+                    char temp[] = {p,q,r,s};
+                    Arrays.sort(temp);  //its only done for 4 numbers 
+                    count+=(temp[3]-temp[0])+(temp[3]-temp[1])+(temp[3]-temp[2]);
+                }
+            }
+            System.out.println(count);
+        }
+    }
+}
+
+/*
+LOGIC---
+This question is all about identifying the relation between the four position in a matrix that needs to be equal when rotating the matrix by 90 degree.
+The four positions are:
+
+a[i][j] = Element at first index (leftmost corner top)
+a[j][n-1-i] = Rightmost corner top Element 
+a[n-1-i][n-1-j] = Rightmost corner bottom element 
+a[n-1-j][i] = Leftmost corner bottom element 
+
+Make each of them equal to the largest value and calculate the count based on the differnece of the character 
+*/
