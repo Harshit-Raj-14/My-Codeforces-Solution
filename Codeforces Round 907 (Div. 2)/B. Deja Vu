@@ -1,0 +1,65 @@
+import java.util.*;
+public class main2{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            int n=sc.nextInt();
+            int q=sc.nextInt();
+            long arr[] = new long[n];
+            int arr2[] = new int[q];
+            for(int i=0;i<arr.length;i++){
+                arr[i]=sc.nextLong();
+            }
+            ArrayList<Integer> Q = new ArrayList<>();
+            for(int i=0;i<arr2.length;i++){
+                arr2[i]=sc.nextInt();
+                if(Q.isEmpty() || Q.get(Q.size()-1)>arr2[i]) Q.add(arr2[i]);
+            }
+
+            for(int i=0;i<Q.size();i++){
+                int xi=Q.get(i);
+                long val = (long)Math.pow(2,xi);
+                for(int j=0;j<arr.length;j++){
+                    if(arr[j] % val == 0) arr[j]+= val/2;   //2^(xi-1) => 2^xi / 2 => val/2
+                }
+            }
+
+            for(int j=0;j<arr.length;j++){
+                System.out.print(arr[j]+" ");
+            }
+            System.out.println();
+        }
+        sc.close();
+    }
+}
+
+
+
+/*
+LOGIC---
+
+We are given an array x of q querries.
+These queries apply a specifc operation on all elements of arr.
+On the condition for i-th query that arr[j] should be divisble by 2^xi and if it is then arr[j]=arr[j]+2^(xi-1)
+
+So, if operation is successful it would look something like this
+
+arr[j(old)] = 2^xi * y; where y can be any integer => condition for applying the operation
+Now, operation applied:
+
+arr[j]=arr[j(old)] + 2^(xi-1) = arr[j] = 2^(xi-1) [2^1 * y + 1]
+
+Previously arr[j] was divisble by 2^xi.
+But now that is not possible becuase the greatest power of 2 that divides arr[j] after operation is 2^(xi-1).
+
+In a way we have lowered the bar for the divisiblity of power of 2 for the queries.
+
+So, now the queries will only work if they are equal to or less than 2^(xi-1)
+
+Hence we can say that now any query which is greater than the previous query will actually have no effect and will only waste iterations.
+So, just make a seperate lis tof queries where you do not use these useless queries.
+
+And now do what the question asks.
+*/
+
