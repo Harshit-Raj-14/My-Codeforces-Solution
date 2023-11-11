@@ -1,0 +1,48 @@
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+
+        for (int i = 0; i < t; i++) {
+            int n = sc.nextInt();
+            int[] arr = new int[n];
+            HashMap<Integer, Integer> count = new HashMap<>();
+
+            for (int j = 0; j < n; j++) {
+                arr[j] = sc.nextInt();
+                count.put(arr[j], count.getOrDefault(arr[j], 0) + 1);
+            }
+
+            ArrayList<Integer> list = new ArrayList<>();
+            for (Map.Entry<Integer, Integer> entry : count.entrySet()) {
+                if (entry.getValue() >= 2) {
+                    list.add(entry.getKey());
+                }
+            }
+
+            if (list.size()<2) System.out.println(-1);
+            else{
+                ArrayList<Integer> b = new ArrayList<>();
+                int p1 = -1, p2 = -1;
+
+                for (int x : arr) {
+                    if (x == list.get(0)) {
+                        if(p1==-1){b.add(1); p1=1;}
+                        else b.add(2);
+                    } 
+                    else if (x == list.get(1)) {
+                        if(p2==-1){b.add(1); p2=1;}
+                        else b.add(3);
+                    } else b.add(1);
+                }
+
+                for (int x : b) {
+                    System.out.print(x + " ");
+                }
+                System.out.println();
+            }
+        }
+    }
+}
