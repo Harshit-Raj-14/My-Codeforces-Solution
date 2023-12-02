@@ -1,0 +1,35 @@
+import java.util.*;
+public class Main{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            int n=sc.nextInt();
+            long arr[] = new long[n]; 
+            for(int i=0;i<n;i++){
+                arr[i]=sc.nextInt();
+            }
+            long maxsum=Long.MIN_VALUE;
+            int i=0;
+            while(i<n){
+                int flag=1;
+                long currsum=arr[i];
+                int j=i+1;
+                while(j<n && flag==1){
+                    if(Math.abs(arr[j-1]%2) != Math.abs(arr[j]%2)) currsum+=arr[j]; //for -ve number % will give -1 so take care
+                    else flag=0;
+                    j++;
+                }
+                maxsum=Math.max(maxsum, currsum);
+                i++;
+            }
+            System.out.println(maxsum);
+        }
+        sc.close();
+    }
+}
+
+/*
+LOGIC---
+
+*/

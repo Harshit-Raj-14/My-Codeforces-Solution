@@ -1,0 +1,41 @@
+import java.util.*;
+public class main{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            int n=sc.nextInt();
+            int k=sc.nextInt();
+            String s = sc.next();
+            int countB=0;
+            for(int i=0;i<s.length();i++){
+                if(s.charAt(i)=='B') countB++;
+            }
+            if(countB==k) System.out.println("0");
+            else{
+                if(countB>k){
+                    int removeB = countB-k;   //that many B's need to become A
+                    int i=0;
+                    while(i<s.length() && removeB!=0){
+                        if(i<s.length() && s.charAt(i)=='B') removeB--;
+                        i++;
+                    }
+                    System.out.println(1);  //always one operation is needed in minimum
+                    System.out.println(i+" A");  //the actual indexing would have been i-1 but ans is needed in 1-indexing
+                }
+                else{       //countB<k
+                    int needB = k-countB;   //that many A's need to become B
+                    int removeA = needB;
+                    int i=0;
+                    while(i<s.length() && removeA!=0){
+                        if(i<s.length() && s.charAt(i)=='A') removeA--;
+                        i++;
+                    }
+                    System.out.println(1);  //always one operation is needed in minimum
+                    System.out.println(i+" B");
+                }
+            }
+        }
+        sc.close();
+    }
+}

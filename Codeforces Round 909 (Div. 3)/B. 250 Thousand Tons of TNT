@@ -1,0 +1,46 @@
+import java.util.*;
+public class Main2{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            int n=sc.nextInt();
+            long arr[] = new long[n]; 
+            for(int i=0;i<n;i++){
+                arr[i]=sc.nextInt();
+            }
+            long prefix[] = new long[n];
+            prefix[0]=arr[0];
+            for(int i=1;i<n;i++){
+                prefix[i]=prefix[i-1] + arr[i];
+            }
+            int k=1;
+            long absolutemaxDiff=Integer.MIN_VALUE;
+            while(k<=n){
+                if(n%k==0){
+                    long currmax=Long.MIN_VALUE;
+                    long currmin=Long.MAX_VALUE;
+                    for(int i=0;i<n;){
+                        int each=k;
+                        long carry=0;
+                        while(each-->0){
+                            carry+=arr[i];
+                            i++;
+                        }
+                        currmax=Math.max(currmax, carry);
+                        currmin=Math.min(currmin, carry);
+                        absolutemaxDiff=Math.max(absolutemaxDiff, currmax-currmin);
+                    }
+                }
+                k++;
+            }
+            System.out.println(absolutemaxDiff);
+        }
+        sc.close();
+    }
+}
+
+/*
+LOGIC---
+
+*/
