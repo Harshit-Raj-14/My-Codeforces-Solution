@@ -1,0 +1,52 @@
+import java.util.*;
+public class Main{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int T=sc.nextInt();
+        while(T-->0){
+            int n= sc.nextInt();
+            String s = sc.next();
+            String t = sc.next();
+            int possible=1;
+            int i=0;
+            while(i<n && s.charAt(i)=='0'){
+                if(t.charAt(i)=='1') {possible=-1; break;}
+                i++;
+            }
+            if(possible!=-1) System.out.println("YES");
+            else System.out.println("NO");
+        }
+    }
+}
+
+
+/*
+ * LOGIC---
+ * XOR of same bits = 0
+ * XOR of different bits = 1
+ * 
+ * Now we can choose a range l to r: and replace all si in range with with si^si−l+1 => when 1 indexed
+ * This would become replacing : all si in range with with si^si−l when 0 indexed
+ * 
+ * So, let's say with string
+ * 00001110
+ * we chose l=2,r=5 => that menas we will apply the operation from i=2 to i=5
+ * At i=2 => 0 0 (0^s(2-2)) 0 0 1110 => 0 0 (0^0) 0 0 1110 => si^s0
+ * At i=3 => 0 0 (0^s(3-2)) 0 0 1110 => 0 0 (0^0) 0 0 1110 => si^s1
+ * At i=4 => (si^s2)
+ * 
+ * 
+ * EDGE CASE---
+ * Start by checking the simplest cases where n=1. Notice if s is '0' and t is '1', 
+ * it is impossible to transform since there’s no flexibility with only one bit.
+ * 
+ * And in larger cases,
+ * If you find a '0' in s from the start while a tthe same time you encounter '1' in t, 
+ * it suggests that it's impossible to make the transformation as needed.
+ * 
+ * CONCLUSION---
+ * The only scenario where we will fail, is when s has only 0 while t is the first strignt to encounter 1. So, in no way we cna acheive 1 at that place in s.
+ * Otherwsie, we can defintely be sure that If there is only 0 at positions [1;i) in t, then it is possible to change any bit on the segment [i;n] in s to any other bit by choosing segments of length i and acting from the end, 
+ * i.e. the answer is "Yes".
+ * 
+ */

@@ -1,0 +1,59 @@
+import java.util.*;
+public class Main{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            int n= sc.nextInt();
+            int m= sc.nextInt();
+            ArrayList<ArrayList<Integer>> matrix = new ArrayList<>();
+            for(int i=0;i<n;i++){
+                ArrayList<Integer> row = new ArrayList<>();
+                for(int j=0;j<m;j++){
+                    row.add(sc.nextInt());
+                }
+                matrix.add(row);
+            }
+            int possible=1;
+            if(n<=1 && m<=1) possible=-1;    //both have oen row and one column
+            else if(m==1){  //when there is only one column
+                for(int i=0;i<n/2;i++){
+                    int temp = matrix.get(n-i-1).get(0);
+                    matrix.get(n-i-1).set(matrix.get(i).get(0), 0);
+                    matrix.get(i).set(temp, 0);
+                }
+                //in case of odd n the middle elemnt will still be the same. So just exchange it with any element, like top elemnt
+                if(n%2!=0){
+                    int temp = matrix.get(n/2-1).get(0);
+                    matrix.get(n/2-1).set(matrix.get(0).get(0), 0);
+                    matrix.get(0).set(temp, 0);
+                }
+            }
+            else{
+                for(List<Integer> list : matrix){
+                    Collections.rotate(list, 1);
+                }
+            }
+            if(possible==-1) System.out.println(-1);
+            else{   //print the array
+                for(int i=0;i<matrix.size();i++){
+                    for(int j=0;j<matrix.get(i).size();j++){
+                        System.out.print(matrix.get(i).get(j)+" ");
+                    }
+                    System.out.println();
+                }
+            }
+        }
+    }
+}
+
+
+/*
+ * To make a matrix b that does not have any equality with its original matrix a.
+ * We can rotate all rows by 1 unit sinc ethere ar eno duplicates there shoudln't be any more collision.
+ * That's it.
+ * 
+ * EDGE CASE---
+ * When n=1 and m=1 => -1 => no such matrix
+ * Also, the rotate won't work when there is only one column
+ */
