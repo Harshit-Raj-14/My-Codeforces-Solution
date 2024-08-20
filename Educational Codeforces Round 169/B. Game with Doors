@@ -1,0 +1,65 @@
+import java.util.*;
+public class main{
+    public static void main(String args[]){
+        Scanner sc =new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            int l=sc.nextInt();
+            int r=sc.nextInt();
+            int L=sc.nextInt();
+            int R=sc.nextInt();
+            int ans=0;
+            if (r < L || R < l){    //no overlap case
+                ans=1;
+            }
+            else{   //overlap case
+                int rooms[] = new int[101]; //no of rooms, ranges are 1-indexed
+                for(int i=l;i<=r;i++){
+                    rooms[i]++;
+                }
+                for(int i=L;i<=R;i++){
+                    rooms[i]++;
+                }
+                for(int i=0;i<rooms.length;i++){
+                    if(rooms[i]==2 && rooms[i-1]>0) ans++;
+                    if(rooms[i]==1 && rooms[i-1]==2) ans++;
+                }
+            }
+            System.out.println(ans);
+        }
+        sc.close();
+    }
+}
+
+/*
+LOGIC---
+Conditions:
+alice=[l,r]
+bob=[L,R]
+alice(intital room) != bob(intial room) => alice and bob can't be in same room intially
+No. of rooms = 100, No. of doors = 99
+
+
+Case I: 
+Both ranges (l,r) and (L,R) are exclusive => there is no overlap => closing one door is enough to stop them form meeting
+
+Case II: 
+there is an overlap => for each overlap we need to close two doors, sinc ethey will be in seperate rooms
+
+
+Algorithm:
+Make an array rooms which will be marked with 1 if alice or bob present.
+So, overlap rooms will become 2. => where alice or bob can meet
+
+Now,
+0 -> niether bob or alice can be here
+1 -> alice or bob can be here (only one) => non-overlap
+2 -> alice either bob can be here => overlap
+
+So, 
+1 1 => mean they an't meet each other any way => both 1 has alice or both 1 has bob
+1 2 => from 1 person can come to 2 and meet => need to close the door
+2 2 => from 2 person can come to 2 and meet => need to clsoe the door
+2 1 => from 1 person can go backward to 2 and meet => need to close the door
+
+*/
