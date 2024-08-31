@@ -1,0 +1,47 @@
+import java.util.*;
+public class main{
+    public static void main(String args[]){
+        Scanner sc =new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            int n=sc.nextInt();
+            int m=sc.nextInt();
+            int max=Integer.MIN_VALUE;
+            int arr[] = new int[n];
+            for(int i=0;i<n;i++){
+                arr[i]=sc.nextInt();
+                max=Math.max(max, arr[i]);
+            }
+            sc.nextLine();
+            for(int i=0;i<m;i++){
+                String s = sc.nextLine();
+                String[] words = s.split(" ");
+                int l=Integer.parseInt(words[1]);
+                int r=Integer.parseInt(words[2]);
+                if(l<=max && r>=max){
+                    if(s.charAt(0)=='-') max--;
+                    else max++;
+                }
+                System.out.print(max+" ");
+            }
+            System.out.println();
+        }
+        sc.close();
+    }
+}
+
+/*
+LOGIC---
+When a maximum value is maximu, it will remain maximum forever.
+When we encounter + we increment them by 1, all elements in range l, r.
+
+You are worried that what if you increment an elemnt and it becomes greate rthan the prev max.
+But, you are forgetting, for an element to exceed max, it would need to become max itslef first.
+That menas now when next incrment happens they would incrment together.
+Meaning, a maximum number always remains maximum.
+
+eg: 1,2,3,4
++ 1 2 => 2,3,3,4
++ 1 2 => 3,3,3,4
++ 3,4 => 4,4,4,5 => see the four which was the first max, cannot be exceeded, and onyl be exceeded as a max itself of array
+*/

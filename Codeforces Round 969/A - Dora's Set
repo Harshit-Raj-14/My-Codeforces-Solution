@@ -1,0 +1,72 @@
+import java.util.*;
+public class main{
+    public static void main(String args[]){
+        Scanner sc =new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            int l=sc.nextInt();
+            int r=sc.nextInt();
+            int countodd=0; //you could have also counted odd numbers by looping
+            if((l&1)==0) countodd=(int)Math.floor((r-l+1)/2.0); //l is even
+            else countodd=(int)Math.ceil((r-l+1)/2.0);
+            System.out.println(countodd/2);
+        }
+        sc.close();
+    }
+}
+
+/*
+LOGIC---
+maximum no of operation = our gcd triplet
+
+Observe that for any four consecutive numbers starting with an odd number, 
+there is exactly one valid triplet where the GCD of any two numbers in the triplet equals 1. 
+For example:
+    Consider the sequence: (1, 2, 3, 4). The triplet (1, 2, 3) satisfies the GCD condition.
+    For the next set (3, 4, 5, 6), the triplet (3, 4, 5) is valid.
+    
+By counting every four numbers starting with an odd number, the code estimates how many such valid triplets exist in the range [l, r].
+
+How you would have thought about it?
+You could hve done the O(n^3) brute force and print all possible solution.
+You will see the trend.
+That's why it also makes sense why were were givne a cosnecutive integers as a range.
+
+The trend:
+For three numbers a,b,c to have gcd 1 with each other.
+Two of them cannot be even otherwise their gcd will be 2.
+So, we can have atmax 1 even number in the triplet.
+Possibility - 1even+2odd OR 3 odd
+Now even the odd numbers we take, their gcd should be 1.
+An observation consecutive odd have gcd 1. eg : 3,5 or 5,7 or 7,9
+To make maximum gcd triplets it makes sense to use 2odd+1even
+Reason: when you take consecutive odd for gcd pairing, why not utilise the even numbe rin between eg : 3,4,5
+
+Algorithm:
+Our gcd triplet : x, x+1,x+2 where x is odd
+
+if l is odd => count of odd integers in range = Math.ciel((r-l+1)/2.0)  //also don't forget to make it 2.0
+if l is even => count of odd integers in range = Math.floor((r-l+1)/2.0)
+
+no. of gcd triplets = count of odd integer/2 => we are using 2 odd numbers to make 1 triplets
+*/
+
+
+
+/* ANOTHER SOLUTION */
+import java.util.*;
+public class main{
+    public static void main(String args[]){
+        Scanner sc =new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            int l=sc.nextInt();
+            int r=sc.nextInt();
+            int countodd=0;
+            if((l&1)==0) countodd=Math.ciel((r-l+1)/2); //l is even
+            else countodd=Math.floor((r-l+1)/2);
+            System.out.println(countodd/2);
+        }
+        sc.close();
+    }
+}
