@@ -1,0 +1,72 @@
+/* OPTIMISED SOLUTION */
+import java.util.*;
+public class Main {
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while (t-- > 0) {
+            int l = sc.nextInt();
+            int r = sc.nextInt();
+            int ans=-1;
+            int range=r-l;
+            int i=0;
+            while (i*(i-1)/2<=range){
+                ans=i;
+                i++;
+            }
+            System.out.println(ans);
+        }
+        sc.close();
+    }
+}
+
+
+/*
+LOGIC---
+a1=l
+a2=a1+1=l+1 
+a3=a2+2=l+1+2 =l+3
+a4=a3+3=l+1+2+3 = l+6 
+=> this can be our good ArrayList
+
+Generalise, 
+an=an-1 + (n-1)
+=> an = l + (1+2+3+4+....+n-1) = l+ sum of first n-1 natural numbers
+=> an = l + n(n-1)/2
+
+Now we want this an<=r
+=> l + n(n-1)/2 <= r
+=> n(n-1)/2 <= r-l
+
+Now you can apply binary search to find n that fulfills the above condition.
+So, in range, l to r
+YYYYYYYNNNNN => so we need the first Y
+But beware that int low = 1, high = (int) Math.sqrt(2 * range); => difficult to understand
+
+But the above iterative solution works as it iterates quickly in multiple of i to find the largest possible n
+*/
+
+/* O(n) TLE */
+import java.util.*;
+public class Main {
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while (t-- > 0) {
+            int l = sc.nextInt();
+            int r = sc.nextInt();
+            ArrayList<Integer> list = new ArrayList<>();
+            list.add(l);
+            int jump=1;
+            int next=l+jump;
+            while(next<=r){
+                list.add(next);
+                jump++;
+                next+=jump;
+            }
+            System.out.println(list.size());
+        }
+        sc.close();
+    }
+}
+

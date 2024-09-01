@@ -1,0 +1,51 @@
+import java.util.*;
+public class main {
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-->0){
+            int one = sc.nextInt();
+            int two = sc.nextInt();
+            int possible=1;
+            if(one%2!=0) possible=0;
+            if(one==0 && two%2!=0) possible=0;
+            if(possible==1) System.out.println("YES");
+            else System.out.println("NO");
+        }
+        sc.close();
+    }
+}
+
+/*
+LOGIC---
+think about 2,2 => YES
+
+The only condition when ans is NO => a is odd or, when (a is 0 and b is odd)
+Otherwise, the aNswer is always YES
+
+PROOF---
+When a is even.
+a => a/2 -> +1 and a/2 -> -1
+
+Subcase: b is even=> b/2 ->+2 and b/2 -> -2 => hence 1's handles themselves and 2's handles themselves
+Subcase: b is odd => b/2 ->+2 and b/2-> -2, In such a scenario an extra 2 is left.
+Thankfully, since our freq of 1 is not 0 and even. We can transfer one of the +1 to -1, making it -2 to tackle the extra +2 dropped from the odd occurences of 2.
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

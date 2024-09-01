@@ -1,0 +1,47 @@
+import java.util.*;
+public class Main {
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while (t-- > 0) {
+            int n = sc.nextInt();
+            String s = sc.next();
+            int possible=0;
+            //check whether n is a perfect square or not
+            int sqrtn=(int)Math.sqrt(n);
+            if(sqrtn*sqrtn!=n){System.out.println("NO"); continue;}
+            //make ourselves a beautiful matrix of sqrtnxsqrtn
+            int r=sqrtn;
+            int matrix[][] = new int [r][r];
+            for(int i=0;i<r;i++){
+                matrix[0][i]=1; //first row all 1  
+                matrix[r-1][i]=1;   //last row all 1
+                matrix[i][0]=1; //first column all 1
+                matrix[i][r-1]=1;   //last column all 1
+            }
+            StringBuilder sb = new StringBuilder("");
+            for(int i=0;i<r;i++){
+                for(int j=0;j<r;j++){
+                    sb.append(Integer.toString(matrix[i][j]));
+                }
+            }
+            if(sb.toString().equals(s)) System.out.println("YES");
+            else System.out.println("NO");
+        }
+        sc.close();
+    }
+}
+
+/*
+LOGIC---
+The string givne to us is itself made out of a beautiful matrix.
+What we need to tell is that was the beautiful matrix a square(r=c) or nxn matrix.
+
+Condition 1: r=c=Math.sqrt(n) => that menas we want n to be a perfect square
+Do: int sqrt = (int) Math.sqrt(n);
+    return (sqrt * sqrt == n);
+        
+Condtion 2: If condition 1 fulfills, we construct a square beautiful matrix of n*n ourselves.
+And match it with the string.
+If the amtch is successful, return YES.
+*/
