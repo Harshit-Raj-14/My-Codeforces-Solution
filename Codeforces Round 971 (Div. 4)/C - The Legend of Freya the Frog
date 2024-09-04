@@ -1,0 +1,56 @@
+/* ACCEPTED SOLUTION */
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while (t-- > 0) {
+            int x = sc.nextInt();
+            int y = sc.nextInt();
+            int k = sc.nextInt();
+            int xmoves = (x+k-1)/k; // Ceil(x / k)
+            int ymoves = (y+k-1)/k; // Ceil(y / k)
+            int ans = 0;
+            // If the number of moves required for x and y are equal or within 1
+            if (xmoves == ymoves) ans = xmoves + ymoves;
+            else {
+                // Adjust total moves to make sure we alternate correctly
+                if(xmoves>ymoves) ans = xmoves*2-1;
+                else ans = xmoves + ymoves + (ymoves-xmoves);
+            }
+            System.out.println(ans);
+        }
+        sc.close();
+    }
+}
+
+
+/* BRUTE FORCE */
+import java.util.*;
+public class main{
+    public static void main(String args[]){
+        Scanner sc =new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            int x=sc.nextInt();
+            int y=sc.nextInt();
+            int k=sc.nextInt();
+            boolean xturn=true;
+            int ans=0;
+            while(x>0 || y>0){
+                if(xturn){
+                    x-=k;
+                    ans++;
+                    xturn=!xturn;
+                }
+                else{
+                    y-=k;
+                    ans++;
+                    xturn=!xturn;
+                }
+            }
+            System.out.println(ans);
+        }
+        sc.close();
+    }
+}
