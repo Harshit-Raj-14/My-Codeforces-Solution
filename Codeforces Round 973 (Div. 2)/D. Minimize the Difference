@@ -1,0 +1,210 @@
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();  
+        while (t-- > 0) {
+            int n = sc.nextInt();  
+            int arr[] = new int[n];
+            int min=Integer.MAX_VALUE;
+            int max=Integer.MIN_VALUE;
+            for(int i=0;i<n;i++){
+                arr[i]=sc.nextInt();
+                min=Math.min(min, arr[i]);
+                max=Math.max(max, arr[i]);
+            }
+            //Finding Minimized MAX 
+            int l=min;  //l and r are possible ranges for our max to exist and minimised to
+            int r=max;
+            int minimized_max=-1;
+            while(l<=r){
+                int mid=l+(r-l)/2;
+                if(isMinimizedMax(arr, mid)){   //type: NNNNNNYYYYY => need first Y
+                    r=mid-1;
+                    minimized_max=mid;
+                }
+                else l=mid+1;
+            }
+            //Finding Maximized MIN
+            l=min;
+            r=max;
+            int maximized_min=-1;
+            while(l<=r){
+                int mid=l+(r-l)/2;
+                if(isMaximizedMin(arr, mid)){   //type: YYYYYYYNNNNNN => need first Y
+                    l=mid+1;
+                    maximized_min=mid;
+                }
+                else r=mid-1;
+            }
+            System.out.println(minimized_max - maximized_min);
+        }
+        sc.close();
+    }
+
+    public static boolean isMinimizedMax(int arr[], int mid){   //mid is our candidate for maximum minimized
+        int temp[] = Arrays.copyOf(arr, arr.length);    //do not update original array
+        for(int i=0;i<temp.length-1;i++){    //iterate forward to make check on last element
+            if(temp[i]>mid){
+                while(i+1<temp.length && temp[i]>mid){
+                    temp[i]-=1;
+                    temp[i+1]+=1;
+                }
+            }
+        }
+        if(temp[temp.length-1]>mid) return false;
+        else return true;   //we succeeded to get mid as the max of array
+    }
+
+    public static boolean isMaximizedMin(int arr[], int mid){   //mid is our candidate for maximized min
+        int temp[] = Arrays.copyOf(arr, arr.length);
+        for(int i=temp.length-1;i>=0;i--){    //iterate backward to make check on first element
+            if(temp[i]<mid){
+                while(i-1>=0 && temp[i]<mid){
+                    temp[i]+=1;  //reversing i+2 to i
+                    temp[i-1]-=1;    //reversing i to i-1
+                }
+            }
+        }
+        if(temp[0]<mid) return false;
+        else return true;   //we succeeded to get mid as the min of array
+    }
+}
+ 
+ 
+/*
+LOGIC---
+Objective : minimum possible value of max(a1,a2,…,an) − min(a1,a2,…,an).
+So, we need to minimize the max of array and maximize the min of array to make the overall answer minimum.
+
+=> BINARY SEARCH ON ANSWER (minimizing the max or maximising the min)
+
+MINIMIZING THE MAX----
+Let's consider array 4 2 3 1
+curr max=4
+Since we need to minimise our max. Think can we make 4 into 3. if possible think cna we make 3 into 2.
+If possible can we make 2 into 1. If not then from here one all possiblities fail.
+Infact the nature of having a number to exist as max in array is of type : 
+4 3 2 1 0 -1 
+YYYYYYNNNNNN something like this
+Let's make it straight : 
+-1 0 1 2 3 4....
+NNNNNNNYYYYY
+
+Dry run: since operation is ai = ai - 1 and ai+1= ai+1 + 1
+arr=  4 2 3 1
+4 is already max
+Is max=3 possible:
+iterate left to right since we are decrementing first and we need to minmise max
+Minimise any element >3
+=> 3 3 3 1 => so max=3 possible
+Is max=2 possible:
+=> 2 4 3 1 => 2 3 4 1 =>  2 2 5 1 =>  2 2 4 2 =>  2 2 3 3 =>  2 2 2 4 sinc eon last element operation cant be applied.
+2 can't be max element.
+
+So minimum of max is 3.
+
+
+MAXIMIZING THE MIN----
+arr=  4 2 3 1
+curr min=1
+Since we need to maximise our min. Think can we make 1 into 2. if possible can we make 2 into 3 and check so on...
+We will see a pattern that one point we won't be able to achieve our min.
+
+1 2 3 4 5 6 7 
+YYYYYNNNNNNN something like this nature.
+
+Dry run:
+Is min=2 possible.
+This time iterate from right to left, since operation on ai =ai-1 and ai+1= ai+1 + 1
+[4,2,3,1] -> [4,2,2,2] so min=2 possible.
+Is min=3 possible.
+[4,2,2,2] -> [4,2,1,3] -> [4,1,2,3] -> [4,0,3,3] -> [3,1,3,3] -> [2,2,3,3] -> failed
+hence you can see we have failed since on 0th index we can do only -1 and 3 is no longer possible to have as min
+
+So, maximum of min is 2.
+
+ans = max - min = 3-2  =1
+
+*/
+
+
+/* ACCEPTED */
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt(); 
+        while (t-- > 0) {
+            int n = sc.nextInt();  
+            long[] arr = new long[n];
+            for (int i = 0; i < n; i++) {
+                arr[i] = sc.nextLong();
+            }
+            // Find Minimized Maximum
+            long minimizedMax = findMinimizedMax(arr);
+            // Find Maximized Minimum
+            long maximizedMin = findMaximizedMin(arr);
+            System.out.println(minimizedMax - maximizedMin);
+        }
+        sc.close();
+    }
+
+    public static long findMinimizedMax(long[] arr) {
+        long l = (long) -1e15;
+        long r = (long) 1e15;
+        long minimizedMax = 0;
+        while (l <= r) {
+            long mid = (l + r) / 2;
+            if (canMinimizeMax(arr, mid)) {
+                r = mid - 1;
+                minimizedMax = mid;
+            } 
+            else l = mid + 1;
+        }
+        return minimizedMax;
+    }
+
+    public static long findMaximizedMin(long[] arr) {
+        long l = (long) -1e15;
+        long r = (long) 1e15;
+        long maximizedMin = 0;
+        while (l<=r) {
+            long mid = (l + r) / 2;
+            if (canMaximizeMin(arr, mid)) {
+                l = mid + 1;
+                maximizedMin = mid;
+            } else r = mid - 1;
+        }
+        return maximizedMin;
+    }
+
+    public static boolean canMinimizeMax(long[] arr, long mid) {
+        long[] temp = Arrays.copyOf(arr, arr.length);   //don't update original array
+        for (int i = 0; i < temp.length-1; i++) {
+            if (temp[i] > mid) {
+                long extra = temp[i] - mid; //applying the operation at once to save time 
+                temp[i + 1] += extra;
+                temp[i] = mid;  // Set current element to mid
+            }
+        }
+        return temp[temp.length - 1] <= mid;
+    }
+
+    public static boolean canMaximizeMin(long[] arr, long mid) {
+        long[] temp = Arrays.copyOf(arr, arr.length);
+        for (int i = temp.length - 1; i > 0; i--) {
+            if (temp[i] < mid) {
+                long extra = mid - temp[i];
+                temp[i - 1] -= extra;
+                temp[i] = mid;  // Set current element to mid
+            }
+        }
+        return temp[0] >= mid;
+    }
+}
+
+/*
+Note - The previous solution gives TLE this one just optmises the while loop for operations made.
+*/

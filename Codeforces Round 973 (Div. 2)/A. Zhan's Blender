@@ -1,0 +1,26 @@
+import java.util.*;
+public class Main{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            int n= sc.nextInt();    //total fruits
+            int x= sc.nextInt();    //number of fruits Zhan can put into the blender per second
+            int y= sc.nextInt();    //number of fruits the blender can blend per second
+            int ans=0;
+            if(x<=y){   //the speed will now depend only on x
+                ans = (int)Math.ceil(n*1.0/x);
+            }
+            else{       //the speed will now depend only on y
+                ans = (int)Math.ceil(n*1.0/y);
+            }
+            System.out.println(ans);
+        }
+    }
+}
+
+
+/*
+LOGIC---
+
+*/

@@ -1,0 +1,78 @@
+import java.util.*;
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();  
+        while(t-->0) {
+            int n = sc.nextInt();  
+            int[] arr = new int[n];  
+            for (int i = 0; i < n; i++) {
+                arr[i] = sc.nextInt();
+            }
+            int overallGCD = 0;  // Initial GCD value
+            for (int num : arr) {   // Calculate GCD of all elements
+                overallGCD = gcd(overallGCD, num);
+            }
+
+            boolean[] isVisited = new boolean[n];  // Track visited elements
+            int currentGCD = 0;
+            long remainingElements = n;  // Remaining elements
+            long totalSum = 0;   // Sum of GCDs
+            while (currentGCD != overallGCD) {
+                int smallestGCD = Integer.MAX_VALUE;
+                int smallestIndex = -1;
+                // Find the smallest GCD by comparing unvisited elements
+                for (int i = 0; i < arr.length; ++i) {
+                    if (isVisited[i]) continue;
+                    int gcdTest = gcd(currentGCD, arr[i]);  // Test GCD with current element
+                    if (gcdTest < smallestGCD) {
+                        smallestGCD = gcdTest;
+                        smallestIndex = i;
+                    }
+                }
+                isVisited[smallestIndex] = true;  // Mark element as visited
+                currentGCD = smallestGCD;  // Update current GCD
+                --remainingElements;  // Decrease number of remaining elements
+                totalSum += currentGCD;  // Add current GCD to total sum
+            }
+            // Add remaining GCD contributions for unvisited elements
+            totalSum += currentGCD * remainingElements;
+            System.out.println(totalSum);
+        }
+        sc.close();
+    }
+
+    private static int gcd(int a, int b) {
+        if (b == 0) return a;
+        return gcd(b, a % b);  // Euclidean algorithm for GCD
+    }
+}
+
+
+/*
+LOGIC---
+GREEDY APPROACH
+The task is to minimize the sum of GCD values: gcd(a1) + gcd(a1, a2) + ... + gcd(a1, a2, ..., an).
+    To do this, we begin by calculating the GCD of the entire array in a single pass. This value (min) represents the smallest GCD that can be obtained if all the elements are used.
+
+The goal is to progressively reduce the GCD as we process the array.
+    Start with current = 0 and in each step, pick the element from the array that, when combined with current, results in the smallest possible GCD.
+    This is achieved by testing the GCD between the current value and each unvisited array element and selecting the one that gives the minimum GCD.
+
+After finding the element that produces the smallest GCD, mark it as visited and update current to the newly calculated GCD.
+    Add this GCD to the overall sum, as this GCD represents the value added to the total at this step.
+    Repeat this process until the current GCD reaches the min (i.e., the GCD of the entire array). At this point, further steps won’t reduce the GCD any further.
+
+Once current reaches min, the remaining elements in the array don’t change the GCD value anymore.
+    Simply add the remaining elements' GCD contributions as current * number of unvisited elements.
+    
+    
+Why This Works:
+
+    By always selecting the element that reduces the GCD to the smallest possible value, we ensure that the sum of GCDs is minimized.
+    The approach is greedy because at each step, we take the local optimal choice (smallest possible GCD) and accumulate it in the result.
+    
+
+TC - O(n^2 * log(max(arr)))
+
+*/

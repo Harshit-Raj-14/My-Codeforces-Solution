@@ -1,0 +1,31 @@
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();  
+        while (t-- > 0) {
+            int n = sc.nextInt();  
+            ArrayList<Integer> arr = new ArrayList<>(n);
+            long sum = 0;  
+            for (int i = 0; i < n; i++) {
+                arr.add(sc.nextInt());
+                if (i<n-2) sum += arr.get(i);   //leave the last two element
+            }
+            System.out.println(arr.get(n-1) - (arr.get(n-2) - sum));
+        }
+        sc.close();
+    }
+}
+ 
+ 
+/*
+LOGIC---
+arr=a1,a2,a3,a4
+Considering the last element will be the one to battle last. Reason we can only cause battle between i and j where i<j.
+
+rating = a4 - {k} > for rating to be maximum we would want k to be minimum.
+Now a1,a2,a3 will be what makes k.
+K min = a3-(a1+a2)
+
+rating = a4 - {a3-(a1+a2)}
+*/
