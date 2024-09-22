@@ -1,0 +1,77 @@
+/* TLE */
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();  
+        while (t-- > 0) {
+            long n = sc.nextLong();
+            long k = sc.nextLong();
+            long notshed = Math.max(1, n - k + 1);      //start of range
+            long oddleaves = (n + 1) / 2 - notshed / 2;
+            if (oddleaves % 2 == 0) System.out.println("YES");
+            else System.out.println("NO");
+        }
+        sc.close();
+    }
+}
+
+/*
+LOGIC---
+Given: leaves grow at rate i^i, if leaf generated at ith year. It will ide after i+k-1 years.
+Objective: find whether total leaves at end of nth year is even or odd
+
+The elaves contributing for nth year will be : n ,n-1, n-2,.... n-k+1
+Because leaves at (n-k+1)-1=n-k and before that will be all dead.
+
+Now, i^i:
+Case I: if i is odd -> i^i will also be odd
+Case II: if i is even -> i^i will also be even
+So, in fact instead of calculating i^i(which is not possible here, see contraints), 
+we can predict that sum of leaves can be even or odd based on i itself.
+
+So, now just check how many odd leaves in range= n ,n-1, n-2,.... n-k+1
+If there are even odd leaves total sum will be even, otherwise odd.
+
+But again iterating the range will give TLE.
+
+We need some O(1) method to idrectly tell we have odd numbers in above range.
+
+count of odd numbers  from 1 to n = Math.floor(n+1/2)
+because every second number starting from 1 is odd.
+
+count of odd from start to end: Math.floor(n+1/2) - Math.floor(end/2)
+length of range = end-start + 1
+
+
+If r is odd, then the number of odd numbers between 1 and r is (r+1)/2​.
+If l−1 is odd, the number of odd numbers between 1 and l−1l−1 is l/2​.
+Therefore, the count of odd numbers between l and r is:
+oddCountInRange(l,r)=(r+1)/2 - l/2
+
+// Function to count odd numbers between l and r
+public static long countOdd(long l, long r) {
+    return (r + 1) / 2 - l / 2;
+}
+*/
+
+/* TLE */
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();  
+        while (t-- > 0) {
+            long n = sc.nextLong();
+            long k = sc.nextLong();
+            long notshed = Math.max(1, n - k + 1);  
+            long oddleavescount=0;
+            for(int i=notshed;i<=n;i++){
+                if(i%2!=0) oddleavescount++;
+            }
+            if (oddleavescount % 2 == 0) System.out.println("YES");
+            else System.out.println("NO");
+        }
+        sc.close();
+    }
+}

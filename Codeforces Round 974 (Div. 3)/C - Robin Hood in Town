@@ -1,0 +1,48 @@
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while (t-- > 0) {
+            long n = sc.nextLong();
+            long[] arr = new long[(int) n];
+            long sum = 0;
+            long ind = 0;   //index at which max occurs
+            long max = 0;
+            for (long i = 0; i < n; i++) {
+                arr[(int) i] = sc.nextLong();
+                sum += arr[(int) i];
+                if (max < arr[(int) i]) {
+                    max = arr[(int) i];
+                    ind = i;
+                }
+            }
+            //a simple base case where the only person who will be rich will be happy
+            if (n == 1) {
+                System.out.println(-1);
+                continue;
+            }
+            long l = 0;
+            long r = (long) 1e17;
+            long ans = -1;
+            // Binary search on Answer
+            while (l <= r) {
+                long mid = (l + r) / 2;
+                arr[(int) ind] += mid;  //adding candidat x to our largest number
+                long unhappycount = 0;
+                // Count unhappy people -> A person is unhappy if their wealth is strictly less than half of the average wealth
+                for (long i = 0; i < n; i++) {
+                    if((arr[(int) i]*2L*n) < (sum+mid)) unhappycount++; //arr[i]<sum(~sum/n)
+                }
+                // Update answer based on conditions
+                if (unhappycount > n/2) {   //unhappy people more than half population
+                    ans = mid;
+                    r = mid - 1;
+                } 
+                else l = mid + 1;
+                arr[(int) ind] -= mid;  //backtracking the candidate x added to our largest number
+            }
+            System.out.println(ans);
+        }
+    }
+}
