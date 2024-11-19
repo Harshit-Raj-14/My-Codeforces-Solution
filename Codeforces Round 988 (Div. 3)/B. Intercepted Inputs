@@ -1,0 +1,43 @@
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt(); 
+        while (t-- > 0) {
+            int k = sc.nextInt(); 
+            int[] arr = new int[k];
+            HashMap<Integer, Integer> map = new HashMap<>();
+            HashSet<Integer> set = new HashSet<>();
+            for (int i = 0; i < k; i++) {
+                arr[i] = sc.nextInt();
+                map.put(arr[i], map.getOrDefault(arr[i],0)+1);
+                set.add(arr[i]);
+            }
+            int n = k - 2; 
+            int val1 = -1, val2 = -1;
+            for (int i = 0; i < arr.length; i++) {
+                if (arr[i] != 0 && n % arr[i] == 0) { 
+                    int target = n / arr[i];
+                    if (set.contains(target)){
+                        if(arr[i]!=target || (arr[i]==target && map.get(target)>1)){
+                            val1 = arr[i];
+                            val2 = target;
+                            break;
+                        }
+                    }
+                }
+            }
+            System.out.println(val1 + " " + val2);
+        }
+        sc.close();
+    }
+}
+
+
+/*
+LOGIC---
+Apply two sum similar approach and some minor conditions.
+One of the other number can tbe 0.
+
+*/
